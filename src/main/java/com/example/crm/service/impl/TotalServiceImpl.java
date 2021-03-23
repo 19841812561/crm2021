@@ -48,7 +48,7 @@ public class TotalServiceImpl implements TotalService {
 
     @Override
     public void updateTotal(String name) {
-        totalMapper.updateTotal();
+        totalMapper.updateTotal(name);
     }
 
     @Override

@@ -23,60 +23,62 @@ public class MaterialController {
     TotalService totalService;
 
     @RequestMapping("list")
-    public String list(){
+    public String list() {
         return "material/list";
     }
 
     @RequestMapping("add")
-    public String add(){
+    public String add() {
         return "material/add";
     }
 
     @RequestMapping("change")
-    public String change(Model model, String id){
+    public String change(Model model, String id) {
         Material material = materialService.findByIdOrder(id);
-        model.addAttribute("material",material);
+        model.addAttribute("material", material);
         return "material/change";
     }
 
     @RequestMapping("detail")
-    public String detail(Model model,String id){
+    public String detail(Model model, String id) {
         Material material = materialService.findByIdOrder(id);
-        model.addAttribute("material",material);
+        model.addAttribute("material", material);
         return "material/detail";
     }
 
     @RequestMapping("delete")
     @ResponseBody
-    public CURDResult delete(String id){
+    public CURDResult delete(String id,String name) {
         CURDResult result = new CURDResult();
         materialService.deleteByIdOrder(id);
+        System.out.println(name);
+        totalService.updateTotal(name);
 
         return result;
     }
 
     @RequestMapping("save")
     @ResponseBody
-    public CURDResult save(Material material){
+    public CURDResult save(Material material) {
         CURDResult result = new CURDResult();
         //{success:1;msg:""}
 
         materialService.save(material);
         totalService.updateTotal(material.getName());
 
-        System.out.println(material);
+        System.out.println(material.getName());
 
         return result;
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public CURDResult update(Material material){
+    public CURDResult update(Material material) {
         CURDResult result = new CURDResult();
         //{success:1;msg:""}
 
-            materialService.update(material);
-
+        materialService.update(material);
+        totalService.updateTotal(material.getName());
 
         System.out.println(material);
 
@@ -89,12 +91,10 @@ public class MaterialController {
      * page 显示的当前页
      * limit 每次显示多少条
      */
-    public PageResult<Material> listJson(Material condition, int page, int limit){
-        PageResult<Material> result = materialService.findPageResult(condition,page,limit);//limit就是pageSize
+    public PageResult<Material> listJson(Material condition, int page, int limit) {
+        PageResult<Material> result = materialService.findPageResult(condition, page, limit);//limit就是pageSize
         return result;
     }
-
-
 
 
 }

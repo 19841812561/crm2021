@@ -37,7 +37,6 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
     </div>
 </script>
 
@@ -90,56 +89,8 @@
         });
 
         //工具栏事件
-        table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
-                    break;
-                case 'add':
+        t
 
-                    parent.layer.open({
-                        type: 2,//2跳转添加页面
-                        offset: 'auto',
-                        title: '添加课程订单',
-                        content: '/total/add',
-                        area: ['1000px', '600px'],
-                        btn: '关闭全部',
-                        btnAlign: 'c',
-                        yes: function () {
-                            parent.layer.closeAll();
-                        }
-                    });
-                    break;
-            }
-            ;
-        });
-        //触发行双击事件
-        table.on('rowDouble(test)', function (obj) {
-            //obj 同上
-            var orderId = obj.data.id;
-            // alert(orderId);
-            parent.layer.open({
-                type: 2,//2跳转添加页面
-                offset: 'auto',
-                title: '添加课程订单',
-                content: '/total/detail?id=' + orderId,
-                area: ['1000px', '600px'],
-                btn: '关闭全部',
-                btnAlign: 'c',
-                yes: function () {
-                    parent.layer.closeAll();
-                }
-            });
-        });
 
         //工具条事件
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"

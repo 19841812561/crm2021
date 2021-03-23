@@ -25,7 +25,7 @@ public interface TotalMapper {
 
     List<ShowCount> getShowCount();
 
-    void updateTotal();
+    void updateTotal(String name);
 
     String findMaterialCount();
 

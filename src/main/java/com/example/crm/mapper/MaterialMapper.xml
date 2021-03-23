@@ -14,6 +14,8 @@
                 date like '%${condition.date}%'
             </if>
 
+            state = "Y";
+
         </where>
     </sql>
     <select id="findCountByMap" parameterType="map" resultType="int">

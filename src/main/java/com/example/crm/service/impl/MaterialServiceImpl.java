@@ -2,6 +2,7 @@ package com.example.crm.service.impl;
 
 import com.example.crm.mapper.AdminMapper;
 import com.example.crm.mapper.MaterialMapper;
+import com.example.crm.mapper.TotalMapper;
 import com.example.crm.model.*;
 import com.example.crm.service.AdminService;
 import com.example.crm.service.MaterialService;
