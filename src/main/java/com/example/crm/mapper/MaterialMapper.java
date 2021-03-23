@@ -13,6 +13,10 @@ public interface MaterialMapper {
 
     public List<Material> findListByMap(Map<String,Object> map);
 
+    int findCountByMapUnPass(Map<String,Object> map);
+
+    List<Material> findListByMapUnPass(Map<String,Object> map);
+
     public void insert(Material material);
 
     public Material findByOrderId(String id);

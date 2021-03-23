@@ -14,7 +14,7 @@
                 date like '%${condition.date}%'
             </if>
 
-            state = "Y";
+            state = "Y"
 
         </where>
     </sql>
@@ -27,6 +27,33 @@
     <select id="findListByMap" parameterType="map" resultType="material">
         select * from material_history
         <include refid="search_where"></include>
+        order by id limit #{start },#{pageSize};
+
+    </select>
+
+    <sql id="search_whereUnPass">
+        <where>
+            <if test="condition.name != null and condition.name != ''">
+                name like '%${condition.name}%'
+            </if>
+
+            <if test="condition.date != null and condition.date != ''">
+                date like '%${condition.date}%'
+            </if>
+
+            state = "N"
+
+        </where>
+    </sql>
+    <select id="findCountByMapUnPass" parameterType="map" resultType="int">
+        select count(*) from material_history
+        <include refid="search_whereUnPass"></include>
+
+    </select>
+
+    <select id="findListByMapUnPass" parameterType="map" resultType="material">
+        select * from material_history
+        <include refid="search_whereUnPass"></include>
         order by id limit #{start },#{pageSize};
 
     </select>
@@ -54,7 +81,7 @@
     </update>
 
     <select id="getRiseCount" resultType="RiseCount">
-        select left(date ,9) as date,count(*) as total from material_history group by left(date,9);
+        select left(date ,10) as date,count(*) as total from material_history group by left(date,10);
     </select>
 
 

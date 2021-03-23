@@ -27,6 +27,12 @@ public class MaterialController {
         return "material/list";
     }
 
+
+    @RequestMapping("listUnPass")
+    public String listUnPass() {
+        return "material/listUnPass";
+    }
+
     @RequestMapping("add")
     public String add() {
         return "material/add";
@@ -85,7 +91,7 @@ public class MaterialController {
         return result;
     }
 
-    @RequestMapping("listJson")
+    @RequestMapping("listJsonPass")
     @ResponseBody
     /**
      * page 显示的当前页
@@ -94,6 +100,17 @@ public class MaterialController {
     public PageResult<Material> listJson(Material condition, int page, int limit) {
         PageResult<Material> result = materialService.findPageResult(condition, page, limit);//limit就是pageSize
         return result;
+    }
+
+    @RequestMapping("listJsonUnPass")
+    @ResponseBody
+    /**
+     * page 显示的当前页
+     * limit 每次显示多少条
+     */
+    public PageResult<Material> listJsonUnPass(Material condition, int page, int limit) {
+        PageResult<Material> resultUnPass = materialService.findPageResultUnPass(condition, page, limit);//limit就是pageSize
+        return resultUnPass;
     }
 
 

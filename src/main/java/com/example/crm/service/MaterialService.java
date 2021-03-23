@@ -7,6 +7,8 @@ import java.util.List;
 public interface MaterialService {
     public PageResult<Material> findPageResult(Material condition, int page, int pageSize);
 
+    PageResult<Material> findPageResultUnPass(Material condition, int page, int pageSize);
+
     public void save(Material material);
 
 

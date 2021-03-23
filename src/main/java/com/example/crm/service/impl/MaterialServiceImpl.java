@@ -48,6 +48,35 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
+    public PageResult<Material> findPageResultUnPass(Material condition, int page, int pageSize) {
+        PageResult<Material> result = new PageResult<Material>();
+        result.setCode(0);
+        /**
+         * 查询参数先设置为空
+         */
+        Map<String,Object> params = new HashMap<String,Object>();
+        //select * from user limit 0,10
+        params.put("condition",condition);//模糊查询
+        params.put("start",(page-1)*pageSize);
+        params.put("pageSize",pageSize);
+
+
+        //获取总记录数据
+        int totalCount = materialMapper.findCountByMapUnPass(params);
+
+        result.setCount(totalCount);
+
+        //获取查询的数据
+        List<Material> list = materialMapper.findListByMapUnPass(params);
+
+
+
+
+        result.setData(list);
+        return result;
+    }
+
+    @Override
     public void save(Material material) {
         materialMapper.insert(material);
     }
