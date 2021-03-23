@@ -1,0 +1,67 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<from class="layui-form" action="" id="fromAdd">
+
+    <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="username" id="username" th:value="${admin.username}" readonly="readonly" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="password" id="password" th:value="${admin.password}" readonly="readonly" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">身份</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="identity" id="identity" th:value="${admin.identity}" readonly="readonly" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">是否启用</label>
+            <div class="layui-input-inline">
+                <input type="text" name="state" id="state" th:value="${admin.state}" readonly="readonly" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+
+</from>
+
+<script>
+    var $,layer;
+    layui.use(['form','laydate'],function (){
+        var laydate = layui.laydate;
+        $ = layui.jquery;
+        layer = layui.layer;
+        //日期
+        laydate.render({
+            elem:'#laydate'
+        });
+    })
+
+
+</script>
+</body>
+</html>

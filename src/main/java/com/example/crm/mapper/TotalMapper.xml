@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.crm.mapper.TotalMapper">
+    <!--    公共的sql片段-->
+    <sql id="search_where">
+        <where>
+            <if test="condition.name != null and condition.name != ''">
+                name like '%${condition.name}%'
+            </if>
+
+        </where>
+    </sql>
+    <select id="findCountByMap" parameterType="map" resultType="int">
+        select count(*) from material_total
+        <include refid="search_where"></include>
+    </select>
+
+    <select id="findListByMap" parameterType="map" resultType="total">
+        select * from material_total
+        <include refid="search_where"></include>
+        order by id limit #{start },#{pageSize};
+
+    </select>
+
+    <!--    <insert id="updateTotal">-->
+    <!--        INSERT INTO material_total-->
+    <!--            (NAME, TOTAL)SELECT-->
+    <!--                             HIS.NAME,-->
+    <!--                             SUM(HIS.specs)-->
+    <!--        FROM-->
+    <!--            material_history HIS-->
+    <!--        WHERE-->
+    <!--            HIS.NAME = #{name} ON DUPLICATE KEY UPDATE-->
+    <!--            TOTAL = (-->
+    <!--            SELECT-->
+    <!--            SUM(SPECS)-->
+    <!--            FROM-->
+    <!--            MATERIAL_HISTORY-->
+    <!--            WHERE-->
+    <!--            NAME = #{name}-->
+    <!--            )-->
+    <!--        WHERE-->
+    <!--            NAME = #{name};-->
+    <!--    </insert>-->
+
+    <insert id="insert" parameterType="total">
+        insert into material_total
+            (id, name, total)
+        values (null , #{name}, #{total})
+    </insert>
+
+    <select id="findByOrderId" parameterType="string" resultType="total">
+        select *
+        from material_total
+        where id = #{id};
+    </select>
+
+    <delete id="deleteByOrderId" parameterType="String">
+        delete
+        from material_total
+        where id = #{id};
+    </delete>
+
+    <update id="updateTotal" parameterType="String">
+        UPDATE MATERIAL_TOTAL
+        SET TOTAL = (
+            SELECT SUM(SPECS)
+            FROM MATERIAL_HISTORY
+            WHERE NAME = #{name}
+        )
+        WHERE NAME = #{name};
+    </update>
+
+
+    <select id="getShowCount" resultType="ShowCount">
+        select name, total
+        from material_total;
+    </select>
+
+
+
+    <select id="findMaterialCount" resultType="String">
+        select count(id) from material_total;
+    </select>
+
+    <select id="findTotalCount" resultType="String">
+        select sum(total) from material_total;
+    </select>
+</mapper>

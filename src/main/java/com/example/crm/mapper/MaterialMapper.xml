@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.crm.mapper.MaterialMapper">
+<!--    公共的sql片段-->
+    <sql id="search_where">
+        <where>
+            <if test="condition.name != null and condition.name != ''">
+                name like '%${condition.name}%'
+            </if>
+
+            <if test="condition.date != null and condition.date != ''">
+                date like '%${condition.date}%'
+            </if>
+
+        </where>
+    </sql>
+    <select id="findCountByMap" parameterType="map" resultType="int">
+        select count(*) from material_history
+        <include refid="search_where"></include>
+
+    </select>
+
+    <select id="findListByMap" parameterType="map" resultType="material">
+        select * from material_history
+        <include refid="search_where"></include>
+        order by id limit #{start },#{pageSize};
+
+    </select>
+
+    <insert id="insert" parameterType="material">
+        insert into material_history
+        (id,name ,specs,unit,state,date
+        )
+        values (null ,#{name},#{specs},#{unit},#{state},#{date})
+    </insert>
+
+    <select id="findByOrderId" parameterType="string" resultType="material">
+        select * from material_history where id = #{id};
+    </select>
+
+    <delete id="deleteByOrderId" parameterType="String">
+        delete from material_history where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="material">
+        update material_history set name = #{name},specs=#{specs},unit=#{unit},
+                                    state=#{state},date=#{date}
+        where
+                id=#{id}
+    </update>
+
+    <select id="getRiseCount" resultType="RiseCount">
+        select left(date ,9) as date,count(*) as total from material_history group by left(date,9);
+    </select>
+
+
+
+</mapper>

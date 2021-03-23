@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.crm.mapper.CourseOrderMapper">
+<!--    公共的sql片段-->
+    <sql id="search_where">
+        <where>
+            <if test="condition.name != null and condition.name != ''">
+                name like '%${condition.name}%'
+            </if>
+            <if test="condition.address != null and condition.address != ''">
+                address like '%${condition.address}%'
+            </if>
+            <if test="condition.email != null and condition.email != ''">
+                email like '%${condition.email}%'
+            </if>
+
+        </where>
+    </sql>
+    <select id="findCountByMap" parameterType="map" resultType="int">
+        select count(*) from user
+        <include refid="search_where"></include>
+    </select>
+
+    <select id="findListByMap" parameterType="map" resultType="CourseOrder">
+        select * from user
+        <include refid="search_where"></include>
+        order by id limit #{start },#{pageSize};
+
+    </select>
+
+    <insert id="insert" parameterType="courseOrder">
+        insert into user
+        (id,name ,gender,age,address,qq,email,username,password
+        )
+        values (null ,#{name},#{gender},#{age},#{address},#{qq},#{email},#{username},#{password})
+    </insert>
+
+    <select id="findByOrderId" parameterType="string" resultType="courseOrder">
+        select * from user where id = #{id};
+    </select>
+
+    <delete id="deleteByOrderId" parameterType="String">
+        delete from user where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="courseOrder">
+        update user set name = #{name},gender=#{gender},age=#{age},
+                        address=#{address},qq=#{qq},email=#{email},
+                        username=#{username},password=#{password}
+        where
+                id=#{id}
+    </update>
+
+    <select id="getAddressCount" resultType="AddressCount">
+        select left(address,2) as address,count(*) as number from user group by left(address,2);
+    </select>
+
+    <select id="findUserCount" resultType="String">
+        select count(id) from user;
+    </select>
+
+</mapper>

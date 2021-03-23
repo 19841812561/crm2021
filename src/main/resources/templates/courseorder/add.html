@@ -1,0 +1,139 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<from class="layui-form" action="" id="fromAdd">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" id="name" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <input type="text" name="gender" id="gender"  placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="age" id="age" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">籍贯</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="address" id="address" lay-verify="required|phone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">qq</label>
+            <div class="layui-input-inline">
+                <input type="text" name="qq" id="qq" lay-verify="required|phone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" id="email" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="username" id="username" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="password" id="password" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">日期选择</label>
+            <div class="layui-input-block">
+                <input type="text" name="date" id="laydate" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" onclick="doSave();" class="layui-btn"  lay-filter="demo1">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+
+</from>
+
+<script>
+    var $,layer;
+    layui.use(['form','laydate'],function (){
+        var laydate = layui.laydate;
+        $ = layui.jquery;
+        layer = layui.layer;
+        //日期
+        laydate.render({
+            elem:'#laydate'
+        });
+    })
+
+    function doSave(){
+        //alert("vvv");
+        $.ajax({
+            type:"post",
+            url:"/courseorder/save",
+            data:{
+                name:$("#name").val(),
+                gender:$("#gender").val(),
+                age:$("#age").val(),
+                address:$("#address").val(),
+                qq:$("#qq").val(),
+                email:$("#email").val(),
+                username:$("#username").val(),
+                password:$("#password").val()
+
+            },
+            success:function (data){
+                if (data.success == 1){
+                    layer.alert("添加成功",{yes:function (){
+                        parent.layer.closeAll();
+                        }})
+                }else{
+                    layer.alert("添加失败",{yes:function (){
+                            parent.layer.closeAll();
+                        }})
+                }
+            },
+            error:function (){
+
+            }
+
+        })
+    }
+</script>
+</body>
+</html>
