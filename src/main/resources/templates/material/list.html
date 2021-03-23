@@ -47,11 +47,12 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+
     </div>
 </script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <button class="layui-btn layui-btn-xs" lay-event="add">添加</button>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -59,12 +60,10 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
 <script>
-    var $,table;
+    var $, table;
     layui.use('table', function () {//加载表格模块
         table = layui.table;//获取表格对象
         $ = layui.jquery;
-
-
 
 
         //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
@@ -92,14 +91,14 @@
                     , {field: 'unit', title: '规格', width: 120}
                     , {field: 'state', title: '状态', width: 120}
                     , {field: 'date', title: '日期', width: 120}
-                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 180}
 
                 ]
             ]
             , page: true
             , limit: 7
             , limits: [7, 8, 9, 10]
-            ,id:'orderTable'
+            , id: 'orderTable'
         });
 
         //工具栏事件
@@ -165,7 +164,7 @@
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);
                     //向服务端发送删除指令
-                    $.get("/material/delete", {id: orderId,name: name}, function (respData) {
+                    $.get("/material/delete", {id: orderId, name: name}, function (respData) {
                         if (respData.success == 1) {
                             layer.msg("删除成功");
                         } else {
@@ -190,16 +189,17 @@
             }
         });
     });
-    function doSearch(){
+
+    function doSearch() {
         //通过jquery获取参数
         var name = $("#name").val();
         var date = $("#date").val();
-        table.reload('orderTable',{
-            where:{//附加额外条件
-               name:name,
-                date:date
-            },page: {
-                curr:1
+        table.reload('orderTable', {
+            where: {//附加额外条件
+                name: name,
+                date: date
+            }, page: {
+                curr: 1
             }
         });
     }
