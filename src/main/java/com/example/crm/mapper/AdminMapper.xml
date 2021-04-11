@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.crm.mapper.AdminMapper">
-<!--    公共的sql片段-->
+    <!--    公共的sql片段-->
     <sql id="search_where">
         <where>
             <if test="condition.username != null and condition.username != ''">
@@ -12,17 +12,20 @@
             <if test="condition.identity != null and condition.identity != ''">
                 identity like '%${condition.identity}%'
             </if>
-            <if test="condition.state != null and condition.state != ''">
-                state like '%${condition.state}%'
+            <if test="condition.power != null and condition.power != ''">
+                power like '%${condition.power}%'
+            </if>
+            <if test="condition.start != null and condition.start != ''">
+                start like '%${condition.start}%'
             </if>
 
         </where>
     </sql>
+
     <select id="findCountByMap" parameterType="map" resultType="int">
         select count(*) from admin
         <include refid="search_where"></include>
     </select>
-
     <select id="findListByMap" parameterType="map" resultType="admin">
         select * from admin
         <include refid="search_where"></include>
@@ -32,39 +35,52 @@
 
     <insert id="insert" parameterType="admin">
         insert into admin
-        (id,username ,password,identity,state
-        )
-        values (null ,#{username},#{password},#{identity},#{state})
+        (id, name, password, gander, username, count, identity, power, start, state)
+        values (null, #{name}, #{password}, #{gander}, #{username}, #{count}, #{identity}, #{power}, #{start}, #{state})
     </insert>
 
     <select id="findByOrderId" parameterType="string" resultType="admin">
-        select * from admin where id = #{id};
+        select *
+        from admin
+        where id = #{id};
     </select>
 
     <delete id="deleteByOrderId" parameterType="String">
-        delete from admin where id = #{id};
+        delete
+        from admin
+        where id = #{id};
     </delete>
 
     <update id="update" parameterType="admin">
-        update admin set username = #{username},password=#{password},identity=#{identity},
-                         state=#{state}
-        where
-                id=#{id}
+        update admin
+        set name=#{name},
+            password=#{password},
+            gander=#{gander},
+            username=#{username},
+            count=#{count},
+            identity =#{identity},
+            power=#{power},
+            start=#{start},
+            state=#{state}
+        where id = #{id}
     </update>
 
     <select id="getAddressCount" resultType="AddressCount">
-        select left(address,2) as address,count(*) as number from admin group by left(address,2);
+        select left (address, 2) as address, count (*) as number
+        from admin
+        group by left (address, 2);
     </select>
-
 
 
     <select id="findByAdminNameAndPassword" resultType="admin">
-        select * from admin where username = #{username};
+        select *
+        from admin
+        where username = #{username};
     </select>
 
 
-
     <select id="findAdminCount" resultType="String">
-        select count(*) as count from admin;
+        select count(*) as count
+        from admin;
     </select>
 </mapper>

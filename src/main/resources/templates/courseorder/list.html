@@ -15,53 +15,136 @@
     <legend>用户管理</legend>
 </fieldset>
 <br>
-<from class="layui-form" action="" id="searchFrom">
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">姓名</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" id="name" placeholder="请输入姓名" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">籍贯</label>
-            <div class="layui-input-inline">
-                <input type="text" name="address" id="address" placeholder="请输入籍贯" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">邮箱</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="email" id="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
-            </div>
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--                搜索内容的面板-->
+                <div class="layui-card-body" style="width: 100%; height: 650px">
+                    <from class="layui-form" action="" id="searchFrom">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">地区</label>
+                            <div class="layui-input-inline">
+                                <select name="modules" lay-verify="required" lay-search="">
+                                    <option value="">请选择所在省份</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                    <option value="4">element</option>
+                                    <option value="5">laytpl</option>
+                                    <option value="6">upload</option>
+                                    <option value="7">laydate</option>
+                                    <option value="8">laypage</option>
+                                    <option value="9">flow</option>
+                                    <option value="10">util</option>
+                                    <option value="11">code</option>
+                                    <option value="12">tree</option>
+                                    <option value="13">layedit</option>
+                                    <option value="14">nav</option>
+                                    <option value="15">tab</option>
+                                    <option value="16">table</option>
+                                    <option value="17">select</option>
+                                    <option value="18">checkbox</option>
+                                    <option value="19">switch</option>
+                                    <option value="20">radio</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">用户名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" id="name" placeholder="请输入用户名" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">邮箱</label>
+                                <div class="layui-input-inline">
+                                    <input type="tel" name="email" id="email" placeholder="请输入邮箱" autocomplete="off"
+                                           class="layui-input">
+                                </div>
 
 
-        </div>
-        <div class="layui-inline">
-            <button type="button" onclick="doSearch();" class="layui-btn" lay-filter="demo1">搜索</button>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">性别</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="sex" value="男" title="男">
+                                    <input type="radio" name="sex" value="女" title="女">
+                                    <input type="radio" name="sex" value=" " title="全部" checked="">
+                                </div>
 
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">昵称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" id="username" placeholder="请输入昵称" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+
+
+                            <!--                            按钮部分-->
+                            <div class="layui-inline" style="margin-left: 40px">
+                                <div class="layui-btn-container">
+
+                                    <button type="button" class="layui-btn layui-btn-primary " style="margin-top: 10px">
+                                        <i class="layui-icon layui-icon-refresh"
+                                           style="font-size: 15px; color: black;"> 重置</i></button>
+
+                                    <button type="button" onclick="doSearch()" class="layui-btn layui-btn-normal"
+                                            style="margin-top: 10px">
+                                        <i class="layui-icon layui-icon-search"
+                                           style="font-size: 15px; color: white;"> 查询</i></button>
+
+                                    <button type="button" class="layui-btn"
+                                            style="margin-top: 10px;background-color: #2ec770;">
+                                        <i class="layui-icon layui-icon-add-1"
+                                           style="font-size: 15px; color: white;"> 添加</i>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </from>
+                    <!--                用户展示的面板-->
+                    <table class="layui-hide" id="test" lay-filter="test"></table>
+                </div>
+
+            </div>
         </div>
     </div>
+</div>
 
-</from>
-<table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">选中数目</button>
 
     </div>
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <button class="layui-btn layui-btn-xs" lay-event="add">添加</button>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit"><i class="layui-icon layui-icon-edit"
+                                                                           style="font-size: 10px; color: #FFFFFF;"></i>
+    </a>
+    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="add"><i class="layui-icon layui-icon-add-1"
+                                                                             style="font-size: 10px; color: #FFFFFF;"></i>
+    </button>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
+            class="layui-icon layui-icon-delete"
+            style="font-size: 10px; color: #FFFFFF;"></i></a>
 </script>
-
+<!--isManager字段的开关按钮-->
+<script type="text/html" id="switchOnOff">
+    <input type="checkbox" {{d.isManager=="1"?"":"checked"}} name="isManager" lay-skin="switch"
+           lay-filter="switchTest"
+           lay-text="是|否">
+</script>
 
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
@@ -78,6 +161,7 @@
             , toolbar: '#toolbarDemo'
             , title: '用户数据表'
             , totalRow: true
+            , width: '1610'
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'}
@@ -90,15 +174,17 @@
                     sort: true,
                     totalRowText: '合计'
                 }
-                    , {field: 'name', title: '用户名', width: 120}
+                    , {field: 'name', title: '姓名', width: 120}
                     , {field: 'gender', title: '性别', width: 120}
                     , {field: 'age', title: '年龄', width: 120}
                     , {field: 'address', title: '籍贯', width: 120}
-                    , {field: 'qq', title: 'qq', width: 120}
-                    , {field: 'email', title: '邮箱', width: 120}
+                    , {field: 'qq', title: 'qq', width: 170}
+                    , {field: 'email', title: '邮箱', width: 170}
                     , {field: 'username', title: '用户名', width: 120}
                     , {field: 'password', title: '密码', width: 120}
-                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 180}
+                    , {field: 'count', title: '捐赠次数', width: 120}
+                    , {field: 'power', title: '是否禁用', toolbar: '#switchOnOff', width: 120}
+                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 165}
 
                 ]
             ]
@@ -196,16 +282,19 @@
         });
     });
 
+    // 添加数据的方法
     function doSearch() {
         //通过jquery获取参数
         var name = $("#name").val();
         var address = $("#address").val();
         var email = $("#email").val();
+        var username = $("#username").val();
         table.reload('orderTable', {
             where: {//附加额外条件
                 name: name,
                 address: address,
-                email: email
+                email: email,
+                username: username
             }, page: {
                 curr: 1
             }

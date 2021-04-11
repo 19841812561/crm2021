@@ -11,6 +11,8 @@ public class CourseOrder {
     private String state;
     private String username;
     private String password;
+    private String count;
+    private String power;
 
     public int getId() {
         return id;
@@ -92,10 +94,26 @@ public class CourseOrder {
         this.password = password;
     }
 
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setPower(String power) {
+        this.power = power;
+    }
+
     @Override
     public String toString() {
         return "CourseOrder{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
@@ -105,6 +123,8 @@ public class CourseOrder {
                 ", state='" + state + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", count='" + count + '\'' +
+                ", power='" + power + '\'' +
                 '}';
     }
 }

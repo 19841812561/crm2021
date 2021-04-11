@@ -17,44 +17,49 @@ public class CourseOrderController {
     ICourseOrderService orderService;
 
     @RequestMapping("list")
-    public String list(){
+    public String list() {
         return "courseorder/list";
     }
 
     @RequestMapping("add")
-    public String add(){
+    public String add() {
         return "courseorder/add";
     }
 
     @RequestMapping("change")
-    public String change(Model model,String id){
+    public String change(Model model, String id) {
         CourseOrder order = orderService.findByIdOrder(id);
-        model.addAttribute("order",order);
+        model.addAttribute("order", order);
         return "courseorder/change";
     }
 
+    @RequestMapping("notice")
+    public String notice() {
+        return "courseorder/notice";
+    }
+
     @RequestMapping("detail")
-    public String detail(Model model,String id){
+    public String detail(Model model, String id) {
         CourseOrder order = orderService.findByIdOrder(id);
-        model.addAttribute("order",order);
+        model.addAttribute("order", order);
         return "courseorder/detail";
     }
 
     @RequestMapping("delete")
     @ResponseBody
-    public CURDResult delete(String id){
+    public CURDResult delete(String id) {
         CURDResult result = new CURDResult();
-       orderService.deleteByIdOrder(id);
+        orderService.deleteByIdOrder(id);
 
         return result;
     }
 
     @RequestMapping("save")
     @ResponseBody
-    public CURDResult save(CourseOrder order){
+    public CURDResult save(CourseOrder order) {
         CURDResult result = new CURDResult();
         //{success:1;msg:""}
-            orderService.save(order);
+        orderService.save(order);
 
 
         System.out.println(order);
@@ -64,11 +69,11 @@ public class CourseOrderController {
 
     @RequestMapping("update")
     @ResponseBody
-    public CURDResult update(CourseOrder order){
+    public CURDResult update(CourseOrder order) {
         CURDResult result = new CURDResult();
         //{success:1;msg:""}
 
-            orderService.update(order);
+        orderService.update(order);
 
 
         System.out.println(order);
@@ -82,8 +87,8 @@ public class CourseOrderController {
      * page 显示的当前页
      * limit 每次显示多少条
      */
-    public PageResult<CourseOrder> listJson(CourseOrder condition,int page,int limit){
-        PageResult<CourseOrder> result = orderService.findPageResult(condition,page,limit);//limit就是pageSize
+    public PageResult<CourseOrder> listJson(CourseOrder condition, int page, int limit) {
+        PageResult<CourseOrder> result = orderService.findPageResult(condition, page, limit);//limit就是pageSize
         System.out.println(result);
         return result;
     }

@@ -15,50 +15,116 @@
     <legend>管理员管理</legend>
 </fieldset>
 <br>
-<from class="layui-form" action="" id="searchFrom">
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-inline">
-                <input type="text" name="username" id="username" placeholder="请输入用户名" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">身份</label>
-            <div class="layui-input-inline">
-                <input type="text" name="identity" id="identity" placeholder="请输入籍贯" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <div class="layui-input-inline">
-                <input type="tel" name="state" id="state" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
-            </div>
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--                搜索内容的面板-->
+                <div class="layui-card-body" style="width: 100%; height: 650px">
+                    <from class="layui-form" action="" id="searchFrom">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">用户名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="username" id="username" placeholder="请输入用户名"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">等级</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="identity" id="identity" placeholder="请输入日期"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+
+                        </div>
 
 
-        </div>
-        <div class="layui-inline">
-            <button type="button" onclick="doSearch();" class="layui-btn" lay-filter="demo1">搜索</button>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">权限</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="power" id="power" placeholder="请输入昵称" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">星级</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="start" id="start" placeholder="请输入昵称" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
 
+
+                        </div>
+                        <div class="layui-form-item">
+
+
+                            <!--                            按钮部分-->
+                            <div class="layui-inline" style="margin-left: 40px">
+                                <div class="layui-btn-container">
+
+                                    <button type="button" class="layui-btn layui-btn-primary " style="margin-top: 10px">
+                                        <i class="layui-icon layui-icon-refresh"
+                                           style="font-size: 15px; color: black;"> 重置</i></button>
+
+                                    <button type="button" onclick="doSearch()" class="layui-btn layui-btn-normal"
+                                            style="margin-top: 10px">
+                                        <i class="layui-icon layui-icon-search"
+                                           style="font-size: 15px; color: white;"> 查询</i></button>
+
+                                    <button type="button" class="layui-btn"
+                                            style="margin-top: 10px;background-color: #2ec770;">
+                                        <i class="layui-icon layui-icon-add-1"
+                                           style="font-size: 15px; color: white;"> 添加</i>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </from>
+                    <!--                用户展示的面板-->
+                    <table class="layui-hide" id="test" lay-filter="test"></table>
+                </div>
+
+            </div>
         </div>
     </div>
+</div>
 
-</from>
-<table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">选中信息</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">选中数目</button>
 
     </div>
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <button class="layui-btn layui-btn-xs" lay-event="add">添加</button>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit"><i class="layui-icon layui-icon-edit"
+                                                                           style="font-size: 10px; color: #FFFFFF;"></i>
+    </a>
+    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="add"><i class="layui-icon layui-icon-add-1"
+                                                                             style="font-size: 10px; color: #FFFFFF;"></i>
+    </button>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
+            class="layui-icon layui-icon-delete"
+            style="font-size: 10px; color: #FFFFFF;"></i></a>
+</script>
+<script type="text/html" id="btn">
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius"
+                style="margin-left: 25px;margin-top: 5px">
+            待审核
+        </button>
+    </div>
+
+
 </script>
 <!--isManager字段的开关按钮-->
 <script type="text/html" id="switchOnOff">
@@ -97,11 +163,16 @@
                     sort: true,
                     totalRowText: '合计'
                 }
-                    , {field: 'username', title: '用户名', width: 120}
-                    , {field: 'password', title: '密码', width: 120}
-                    , {field: 'identity', title: '等级', width: 120}
-                    , {field: 'state', title: '是否启用', toolbar: '#switchOnOff', width: 120}
-                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 180}
+                    , {field: 'name', title: '姓名', width: 155}
+                    , {field: 'password', title: '密码', width: 155}
+                    , {field: 'gender', title: '性别', width: 155}
+                    , {field: 'username', title: '用户名', width: 155}
+                    , {field: 'count', title: '处理记录', width: 155}
+                    , {field: 'identity', title: '等级', width: 155}
+                    , {field: 'power', title: '权限', width: 155}
+                    , {field: 'start', title: '星级', width: 155}
+                    , {field: 'state', title: '是否启用', toolbar: '#switchOnOff', width: 155}
+                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 165}
 
                 ]
             ]
@@ -203,12 +274,14 @@
         //通过jquery获取参数
         var username = $("#username").val();
         var identity = $("#identity").val();
-        var state = $("#state").val();
+        var power = $("#power").val();
+        var start = $("#start").val();
         table.reload('orderTable', {
             where: {//附加额外条件
                 username: username,
                 identity: identity,
-                state: state
+                power: power,
+                start: start
             }, page: {
                 curr: 1
             }

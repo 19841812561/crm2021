@@ -3,19 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.crm.mapper.MaterialMapper">
-<!--    公共的sql片段-->
+    <!--    公共的sql片段-->
     <sql id="search_where">
         <where>
             <if test="condition.name != null and condition.name != ''">
                 name like '%${condition.name}%'
             </if>
 
-            <if test="condition.date != null and condition.date != ''">
-                date like '%${condition.date}%'
+            <if test="condition.type != null and condition.type != ''">
+                type like '%${condition.type}%'
             </if>
 
-            state = "Y"
+            <if test="condition.comefrom != null and condition.comefrom != ''">
+                comefrom like '%${condition.comefrom}%'
+            </if>
 
+            <if test="condition.receive != null and condition.receive != ''">
+                receive like '%${condition.receive}%'
+            </if>
+
+            <if test="condition.deal != null and condition.deal != ''">
+                deal like '%${condition.deal}%'
+            </if>
+
+            state = '1'
         </where>
     </sql>
     <select id="findCountByMap" parameterType="map" resultType="int">
@@ -37,17 +48,25 @@
                 name like '%${condition.name}%'
             </if>
 
-            <if test="condition.date != null and condition.date != ''">
-                date like '%${condition.date}%'
+            <if test="condition.type != null and condition.type != ''">
+                type like '%${condition.type}%'
             </if>
 
-            state = "N"
+            <if test="condition.comefrom != null and condition.comefrom != ''">
+                comefrom like '%${condition.comefrom}%'
+            </if>
 
+            <if test="condition.receive != null and condition.receive != ''">
+                receive like '%${condition.receive}%'
+            </if>
+
+            state = '0'
         </where>
     </sql>
     <select id="findCountByMapUnPass" parameterType="map" resultType="int">
         select count(*) from material_history
         <include refid="search_whereUnPass"></include>
+
 
     </select>
 
@@ -60,30 +79,44 @@
 
     <insert id="insert" parameterType="material">
         insert into material_history
-        (id,name ,specs,unit,state,date
-        )
-        values (null ,#{name},#{specs},#{unit},#{state},#{date})
+        (id, name, type, specs, unit, comfrom, people, receive, deal, date, state)
+        values (null, #{name}, #{type }, #{specs}, #{unit}, #{comefrom}, #{people}, #{receive}, #{deal}, #{date},
+                #{state})
     </insert>
 
     <select id="findByOrderId" parameterType="string" resultType="material">
-        select * from material_history where id = #{id};
+        select *
+        from material_history
+        where id = #{id};
     </select>
 
     <delete id="deleteByOrderId" parameterType="String">
-        delete from material_history where id = #{id};
+        delete
+        from material_history
+        where id = #{id};
     </delete>
 
     <update id="update" parameterType="material">
-        update material_history set name = #{name},specs=#{specs},unit=#{unit},
-                                    state=#{state},date=#{date}
-        where
-                id=#{id}
+        update material_history
+        set name     = #{name},
+            type     = #{tpe},
+            specs    = #{specs},
+            unit     = #{unit},
+            comefrom = #{comefrom},
+            people   = #{people},
+            receive  = #{receive},
+            deal     = #{deal},
+            date     = #{date},
+            state    = #{state}
+
+        where id = #{id}
     </update>
 
     <select id="getRiseCount" resultType="RiseCount">
-        select left(date ,10) as date,count(*) as total from material_history group by left(date,10);
+        select left (date, 10) as date, count (*) as total
+        from material_history
+        group by left (date, 10);
     </select>
-
 
 
 </mapper>

@@ -15,56 +15,120 @@
     <legend>物资管理</legend>
 </fieldset>
 <br>
-<from class="layui-form" action="" id="searchFrom">
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" id="name" placeholder="请输入名称" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">日期</label>
-            <div class="layui-input-inline">
-                <input type="text" name="date" id="date" placeholder="请输入日期" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <button type="button" onclick="doSearch();" class="layui-btn" lay-filter="demo1">搜索</button>
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--                搜索内容的面板-->
+                <div class="layui-card-body" style="width: 100%; height: 650px">
+                    <from class="layui-form" action="" id="searchFrom">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" id="name" placeholder="请输入名称" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">类别</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="type" id="type" placeholder="请输入类别" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">来源</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="comefrom" id="comefrom" placeholder="请输入来源"
+                                           autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
 
+                        </div>
+
+                    </from>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">受理人</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="receive" id="receive" placeholder="请输入受理人" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+
+
+                        <!--                            按钮部分-->
+                        <div class="layui-inline" style="margin-left: 40px">
+                            <div class="layui-btn-container">
+
+                                <button type="button" class="layui-btn layui-btn-primary " style="margin-top: 10px">
+                                    <i class="layui-icon layui-icon-refresh"
+                                       style="font-size: 15px; color: black;"> 重置</i></button>
+
+                                <button type="button" onclick="doSearch();" class="layui-btn layui-btn-normal"
+                                        style="margin-top: 10px">
+                                    <i class="layui-icon layui-icon-search"
+                                       style="font-size: 15px; color: white;"> 查询</i></button>
+
+                                <button type="button" class="layui-btn"
+                                        style="margin-top: 10px;background-color: #2ec770;">
+                                    <i class="layui-icon layui-icon-add-1"
+                                       style="font-size: 15px; color: white;"> 添加</i>
+
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    </from>
+                    <!--                用户展示的面板-->
+                    <table class="layui-hide" id="test" lay-filter="test"></table>
+                </div>
+
+            </div>
         </div>
     </div>
+</div>
 
-</from>
-
-</from>
-<table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">选中信息</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">选中数目</button>
+
     </div>
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit"><i class="layui-icon layui-icon-edit"
+                                                                           style="font-size: 10px; color: #FFFFFF;"></i>
+    </a>
+    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="add"><i class="layui-icon layui-icon-add-1"
+                                                                             style="font-size: 10px; color: #FFFFFF;"></i>
+    </button>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
+            class="layui-icon layui-icon-delete"
+            style="font-size: 10px; color: #FFFFFF;"></i></a>
 </script>
+<script type="text/html" id="btn">
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-warm layui-btn-xs layui-btn-radius"
+                style="margin-left: 25px;margin-top: 5px">
+            待审核
+        </button>
+    </div>
 
 
+</script>
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
 <script>
-    var $,table;
+    var $, table;
     layui.use('table', function () {//加载表格模块
         table = layui.table;//获取表格对象
         $ = layui.jquery;
-
-
 
 
         //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
@@ -75,6 +139,7 @@
             , toolbar: '#toolbarDemo'
             , title: '用户数据表'
             , totalRow: true
+            , width: '1610'
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'}
@@ -87,19 +152,23 @@
                     sort: true,
                     totalRowText: '合计'
                 }
-                    , {field: 'name', title: '用户名', width: 120}
-                    , {field: 'specs', title: '数量', width: 120}
-                    , {field: 'unit', title: '规格', width: 120}
-                    , {field: 'state', title: '状态', width: 120}
-                    , {field: 'date', title: '日期', width: 120}
-                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                    , {field: 'name', title: '名称', width: 143}
+                    , {field: 'type', title: '类别', width: 143}
+                    , {field: 'specs', title: '数量', width: 143}
+                    , {field: 'unit', title: '规格', width: 143}
+                    , {field: 'specs', title: '来源', width: 143}
+                    , {field: 'unit', title: '相关人士', width: 143}
+                    , {field: 'receive', title: '受理人', width: 143}
+                    , {field: 'date', title: '日期', width: 143}
+                    , {field: 'state', title: '状态', toolbar: '#btn', width: 143}
+                    , {field: 'right', title: '操作', toolbar: '#barDemo', width: 178}
 
                 ]
             ]
             , page: true
             , limit: 7
             , limits: [7, 8, 9, 10]
-            ,id:'orderTable'
+            , id: 'orderTable'
         });
 
         //工具栏事件
@@ -165,7 +234,7 @@
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);
                     //向服务端发送删除指令
-                    $.get("/material/delete", {id: orderId,name: name}, function (respData) {
+                    $.get("/material/delete", {id: orderId, name: name}, function (respData) {
                         if (respData.success == 1) {
                             layer.msg("删除成功");
                         } else {
@@ -190,16 +259,21 @@
             }
         });
     });
-    function doSearch(){
+
+    function doSearch() {
         //通过jquery获取参数
         var name = $("#name").val();
-        var date = $("#date").val();
-        table.reload('orderTable',{
-            where:{//附加额外条件
-               name:name,
-                date:date
-            },page: {
-                curr:1
+        var type = $("#type").val();
+        var comefrom = $("#comefrom").val();
+        var receive = $("#receive").val();
+        table.reload('orderTable', {
+            where: {//附加额外条件
+                name: name,
+                type: type,
+                comefrom: comefrom,
+                receive: receive
+            }, page: {
+                curr: 1
             }
         });
     }
