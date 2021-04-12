@@ -68,7 +68,9 @@
                             <div class="layui-inline" style="margin-left: 40px">
                                 <div class="layui-btn-container">
 
-                                    <button type="button" class="layui-btn layui-btn-primary " style="margin-top: 10px">
+                                    <button type="reset" class="layui-btn layui-btn-primary "
+                                            style="margin-top: 10px"
+                                            onclick="doReset()">
                                         <i class="layui-icon layui-icon-refresh"
                                            style="font-size: 15px; color: black;"> 重置</i></button>
 
@@ -78,7 +80,7 @@
                                            style="font-size: 15px; color: white;"> 查询</i></button>
 
                                     <button type="button" class="layui-btn"
-                                            style="margin-top: 10px;background-color: #2ec770;">
+                                            style="margin-top: 10px;background-color: #2ec770;" onclick="doAdd()">
                                         <i class="layui-icon layui-icon-add-1"
                                            style="font-size: 15px; color: white;"> 添加</i>
 
@@ -141,7 +143,6 @@
     layui.use('table', function () {//加载表格模块
         table = layui.table;//获取表格对象
         $ = layui.jquery;
-
 
         //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
@@ -288,6 +289,30 @@
         });
     }
 
+    function doAdd() {
+        //通过jquery获取参数
+        parent.layer.open({
+            type: 2,//2跳转添加页面
+            offset: 'auto',
+            title: '添加课程订单',
+            content: '/stuinfo/add',
+            area: ['1000px', '600px'],
+            btn: '关闭全部',
+            btnAlign: 'c',
+            yes: function () {
+                parent.layer.closeAll();
+            }
+        });
+    }
+
+    function doReset() {
+        //通过jquery获取参数
+        $("#username").val("");
+        $("#identity").val("");
+        $("#power").val("");
+        $("#start").val("");
+        table.reload();
+    }
 
     /*
     开关按钮

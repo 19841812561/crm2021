@@ -38,6 +38,26 @@ public class CourseOrderController {
         return "courseorder/notice";
     }
 
+    @RequestMapping("noticlist1")
+    public String noticlist1() {
+        return "courseorder/noticlist1";
+    }
+
+    @RequestMapping("noticelist2")
+    public String noticelist2() {
+        return "courseorder/noticelist2";
+    }
+
+    @RequestMapping("noticelist3")
+    public String noticelist3() {
+        return "courseorder/noticelist3";
+    }
+
+    @RequestMapping("noticenav")
+    public String noticenav() {
+        return "courseorder/noticenav";
+    }
+
     @RequestMapping("detail")
     public String detail(Model model, String id) {
         CourseOrder order = orderService.findByIdOrder(id);

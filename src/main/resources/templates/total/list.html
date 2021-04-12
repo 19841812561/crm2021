@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
     <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/echarts/echarts.min.js}" charset="utf-8"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
@@ -15,28 +16,55 @@
     <legend>物资总计</legend>
 </fieldset>
 <br>
-<from class="layui-form" action="" id="searchFrom">
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">物资名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" id="name" placeholder="请输入物资名称" autocomplete="off"
-                       class="layui-input">
+
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-card" style="height: 850px;">
+                <from class="layui-form" action="" id="searchFrom">
+                    <div class="layui-form-item">
+                        <div class="layui-inline" style="margin-top: 10px;">
+                            <label class="layui-form-label">物资名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" id="name" placeholder="请输入物资名称" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="button" onclick="doSearch()" class="layui-btn layui-btn-normal"
+                                    style="margin-top: 10px">
+                                <i class="layui-icon layui-icon-search"
+                                   style="font-size: 15px; color: white;">查询</i></button>
+                        </div>
+                    </div>
+
+                </from>
+
+                <div class="layui-card-body" style="height: 400px;">
+
+                    <table class="layui-hide" id="test" lay-filter="test"></table>
+                    <p style="text-align: center">物品均来自于他人捐赠以及正规途径，疫情物资紧缺请认真处理</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+                    <div id="container" style="height: 100%"></div>
+                </div>
             </div>
         </div>
-        <div class="layui-inline">
-            <button type="button" onclick="doSearch();" class="layui-btn" lay-filter="demo1">搜索</button>
-        </div>
     </div>
+</div>
 
-</from>
-<table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="getCheckData">选中数据</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="getCheckLength">选中数目</button>
+
     </div>
 </script>
 
@@ -49,12 +77,10 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
 <script>
-    var $,table;
+    var $, table;
     layui.use('table', function () {//加载表格模块
         table = layui.table;//获取表格对象
         $ = layui.jquery;
-
-
 
 
         //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
@@ -85,11 +111,43 @@
             , page: true
             , limit: 7
             , limits: [7, 8, 9, 10]
-            ,id:'orderTable'
+            , id: 'orderTable'
         });
 
         //工具栏事件
-        t
+        //工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+                case 'add':
+
+                    parent.layer.open({
+                        type: 2,//2跳转添加页面
+                        offset: 'auto',
+                        title: '添加课程订单',
+                        content: '/stuinfo/add',
+                        area: ['1000px', '600px'],
+                        btn: '关闭全部',
+                        btnAlign: 'c',
+                        yes: function () {
+                            parent.layer.closeAll();
+                        }
+                    });
+                    break;
+            }
+            ;
+        });
 
 
         //工具条事件
@@ -127,20 +185,111 @@
             }
         });
     });
-    function doSearch(){
+
+    function doSearch() {
         //通过jquery获取参数
         var name = $("#name").val();
         var total = $("#total").val();
-        table.reload('orderTable',{
-            where:{//附加额外条件
-                name:name,
-                total:total
-            },page: {
-                curr:1
+        table.reload('orderTable', {
+            where: {//附加额外条件
+                name: name,
+                total: total
+            }, page: {
+                curr: 1
             }
         });
     }
 
+</script>
+
+<!--//饼图内容-->
+<script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var option;
+
+    layui.use('layer', function () {
+        var $ = layui.jquery;
+        //获取各地人数数据
+        $.ajax({
+            url: "/dataanalysis/showCount",
+            success: function (respData) {
+                //把json数据转化为数组
+                var jsonStr = JSON.stringify(respData);
+                // console.log(jsonStr);
+                jsonStr = jsonStr.replaceAll("total", "value");
+                // console.log(jsonStr);
+                var data = JSON.parse(jsonStr);
+                option = {
+                    backgroundColor: '#2c343c',
+
+                    title: {
+                        text: 'Customized Pie',
+                        left: 'center',
+                        top: 20,
+                        textStyle: {
+                            color: '#ccc'
+                        }
+                    },
+
+                    tooltip: {
+                        trigger: 'item'
+                    },
+
+                    visualMap: {
+                        show: false,
+                        min: 80,
+                        max: 600,
+                        inRange: {
+                            colorLightness: [0, 1]
+                        }
+                    },
+                    series: [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius: '55%',
+                            center: ['50%', '50%'],
+                            data:
+                                data
+                                    .sort(function (a, b) {
+                                        return a.value - b.value;
+                                    }),
+                            roseType: 'radius',
+                            label: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            },
+                            labelLine: {
+                                lineStyle: {
+                                    color: 'rgba(255, 255, 255, 0.3)'
+                                },
+                                smooth: 0.2,
+                                length: 10,
+                                length2: 20
+                            },
+                            itemStyle: {
+                                color: '#c23531',
+                                shadowBlur: 200,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            },
+
+                            animationType: 'scale',
+                            animationEasing: 'elasticOut',
+                            animationDelay: function (idx) {
+                                return Math.random() * 200;
+                            }
+                        }
+                    ]
+                };
+
+                if (option && typeof option === 'object') {
+                    myChart.setOption(option);
+                }
+            }
+        })
+    })
 </script>
 
 </body>

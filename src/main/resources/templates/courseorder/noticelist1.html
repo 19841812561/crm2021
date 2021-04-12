@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>公告</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>公告管理</legend>
+</fieldset>
+
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <br>
+                <div class="layui-card-body">
+                    <form class="layui-form" action="">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">公告标题</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                       placeholder="管理员须知" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">摘要信息</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="管理员要学习的规定" class="layui-textarea"
+                                          style="width: 200px;height: 100px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form">
+                            <div class="layui-form-item">
+
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">时间设置</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" id="test8"
+                                               placeholder="2021-3-12 - 2021-4-12">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">公告</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="认真负责，谢谢你们" class="layui-textarea"
+                                          style="height: 300px;"></textarea>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            layedit = layui.layedit,
+            laydate = layui.laydate;
+
+
+    });
+</script>
+<script>
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //年月范围
+        laydate.render({
+            elem: '#test8',
+            type: 'month',
+            range: true
+        });
+    });
+</script>
+</body>
+</html>

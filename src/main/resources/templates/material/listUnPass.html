@@ -64,7 +64,8 @@
                         <div class="layui-inline" style="margin-left: 40px">
                             <div class="layui-btn-container">
 
-                                <button type="button" class="layui-btn layui-btn-primary " style="margin-top: 10px">
+                                <button type="reset" onclick="doReset();" class="layui-btn layui-btn-primary "
+                                        style="margin-top: 10px">
                                     <i class="layui-icon layui-icon-refresh"
                                        style="font-size: 15px; color: black;"> 重置</i></button>
 
@@ -73,7 +74,7 @@
                                     <i class="layui-icon layui-icon-search"
                                        style="font-size: 15px; color: white;"> 查询</i></button>
 
-                                <button type="button" class="layui-btn"
+                                <button type="button" onclick="doAdd();" class="layui-btn"
                                         style="margin-top: 10px;background-color: #2ec770;">
                                     <i class="layui-icon layui-icon-add-1"
                                        style="font-size: 15px; color: white;"> 添加</i>
@@ -277,6 +278,32 @@
             }
         });
     }
+
+    function doAdd() {
+        //通过jquery获取参数
+        parent.layer.open({
+            type: 2,//2跳转添加页面
+            offset: 'auto',
+            title: '添加课程订单',
+            content: '/stuinfo/add',
+            area: ['1000px', '600px'],
+            btn: '关闭全部',
+            btnAlign: 'c',
+            yes: function () {
+                parent.layer.closeAll();
+            }
+        });
+    }
+
+    function doReset() {
+        //通过jquery获取参数
+        $("#name").val("");
+        $("#type").val("");
+        $("#comefrom").val("");
+        $("#receive").val("");
+        table.reload();
+    }
+
 
 </script>
 
