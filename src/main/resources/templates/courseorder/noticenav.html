@@ -21,7 +21,7 @@
                     摘要信息：管理员要学习的规定<br>
                     <div class="layui-form-item" style="margin-left: 300px">
                         <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="demo2"
-                                style="margin-left: 110px;" onclick="doSee1">立即查看
+                                style="margin-left: 110px;" onclick="doSee1();">立即查看
                         </button>
 
                     </div>
@@ -36,7 +36,7 @@
                     摘要信息：维护的时间及内容<br>
                     <div class="layui-form-item" style="margin-left: 300px">
                         <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="demo2"
-                                style="margin-left: 110px;" onclick="doSee2">立即查看
+                                style="margin-left: 110px;" onclick="doSee2();">立即查看
                         </button>
 
                     </div>
@@ -51,7 +51,7 @@
                     摘要信息：接下来会有一大批物品入库，注意审核<br>
                     <div class="layui-form-item" style="margin-left: 300px">
                         <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="demo2"
-                                style="margin-left: 110px;" onclick="doSee3">立即查看
+                                style="margin-left: 110px;" onclick="doSee3();">立即查看
                         </button>
 
                     </div>
@@ -60,5 +60,56 @@
         </div>
     </div>
 </div>
+<script>
+    var $ = layui.jquery;
+
+    function doSee1() {
+        //通过jquery获取参数
+        parent.layer.open({
+            type: 2,//2跳转添加页面
+            offset: 'auto',
+            title: '添加课程订单',
+            content: '/courseorder/noticelist1',
+            area: ['1000px', '600px'],
+            btn: '关闭全部',
+            btnAlign: 'c',
+            yes: function () {
+                parent.layer.closeAll();
+            }
+        });
+    }
+
+    function doSee2() {
+        //通过jquery获取参数
+        parent.layer.open({
+            type: 2,//2跳转添加页面
+            offset: 'auto',
+            title: '添加课程订单',
+            content: '/courseorder/noticelist2',
+            area: ['1000px', '600px'],
+            btn: '关闭全部',
+            btnAlign: 'c',
+            yes: function () {
+                parent.layer.closeAll();
+            }
+        });
+    }
+
+    function doSee3() {
+        //通过jquery获取参数
+        parent.layer.open({
+            type: 2,//2跳转添加页面
+            offset: 'auto',
+            title: '添加课程订单',
+            content: '/courseorder/noticelist3',
+            area: ['1000px', '600px'],
+            btn: '关闭全部',
+            btnAlign: 'c',
+            yes: function () {
+                parent.layer.closeAll();
+            }
+        });
+    }
+</script>
 </body>
 </html>

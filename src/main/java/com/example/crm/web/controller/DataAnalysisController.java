@@ -26,30 +26,36 @@ public class DataAnalysisController {
     TotalService totalService;
 
     @RequestMapping("income")
-    public String income(){
+    public String income() {
         return "dataanalysis/income";
     }
 
+    @RequestMapping("map")
+    public String map() {
+        return "dataanalysis/map";
+    }
+    
+
     @RequestMapping("rise")
-    public String rise(){
+    public String rise() {
         return "dataanalysis/rise";
     }
 
     @RequestMapping("show")
-    public String show(){
+    public String show() {
         return "dataanalysis/show";
     }
 
     @RequestMapping("addressCount")
     @ResponseBody
-    public List<AddressCount> addressCounts(){
+    public List<AddressCount> addressCounts() {
         List<AddressCount> list = orderService.getAddressCount();
         return list;
     }
 
     @RequestMapping("riseCount")
     @ResponseBody
-    public List<RiseCount> riseCount(){
+    public List<RiseCount> riseCount() {
         List<RiseCount> list = materialService.getRiseCount();
         return list;
     }
@@ -57,7 +63,7 @@ public class DataAnalysisController {
 
     @RequestMapping("showCount")
     @ResponseBody
-    public List<ShowCount> showCount(){
+    public List<ShowCount> showCount() {
         List<ShowCount> list = totalService.getShowCount();
 
         return list;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>map</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/echarts/echarts.min.js}" charset="utf-8"></script>
+</head>
+<body>
+<div id="container" style="height: 100%"></div>
+<script>
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var option;
+
+    layui.use('layer', function () {
+        var $ = layui.jquery;
+        $.ajax({
+            url: 'http://localhost:8080/static/map/china.json',
+            success: function (respData) {
+                //把json数据转化为数组
+
+                // //声明日期和收入的2个数组
+                // var address = [];
+                // var numbers = [];
+                //
+                // for (var i=0;i<respData.length;i++){
+                //     address[i] = respData[i].address;
+                //     numbers[i] = respData[i].number;
+                // }
+                console.log(respData);
+            }
+        })
+    })
+</script>
+</body>
+</html>

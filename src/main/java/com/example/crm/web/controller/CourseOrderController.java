@@ -38,9 +38,9 @@ public class CourseOrderController {
         return "courseorder/notice";
     }
 
-    @RequestMapping("noticlist1")
-    public String noticlist1() {
-        return "courseorder/noticlist1";
+    @RequestMapping("noticelist1")
+    public String noticelist1() {
+        return "courseorder/noticelist1";
     }
 
     @RequestMapping("noticelist2")
