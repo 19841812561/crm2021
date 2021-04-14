@@ -1,10 +1,9 @@
 package com.example.crm.service.impl;
 
-import com.example.crm.mapper.AdminMapper;
 import com.example.crm.mapper.MaterialMapper;
-import com.example.crm.mapper.TotalMapper;
-import com.example.crm.model.*;
-import com.example.crm.service.AdminService;
+import com.example.crm.model.Material;
+import com.example.crm.model.PageResult;
+import com.example.crm.model.RiseCount;
 import com.example.crm.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,18 +18,18 @@ public class MaterialServiceImpl implements MaterialService {
     MaterialMapper materialMapper;
 
     @Override
-    public PageResult<Material> findPageResult(Material condition, int page, int pageSize) {
+    public PageResult<Material> findPageResult(Material condition, int page, int pageSize, int checkFlg) {
         PageResult<Material> result = new PageResult<Material>();
         result.setCode(0);
         /**
          * 查询参数先设置为空
          */
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         //select * from user limit 0,10
-        params.put("condition",condition);//模糊查询
-        params.put("start",(page-1)*pageSize);
-        params.put("pageSize",pageSize);
-
+        params.put("condition", condition);//模糊查询
+        params.put("start", (page - 1) * pageSize);
+        params.put("pageSize", pageSize);
+        params.put("flg", checkFlg);
 
         //获取总记录数据
         int totalCount = materialMapper.findCountByMap(params);
@@ -39,8 +38,6 @@ public class MaterialServiceImpl implements MaterialService {
 
         //获取查询的数据
         List<Material> list = materialMapper.findListByMap(params);
-
-
 
 
         result.setData(list);
@@ -54,11 +51,11 @@ public class MaterialServiceImpl implements MaterialService {
         /**
          * 查询参数先设置为空
          */
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         //select * from user limit 0,10
-        params.put("condition",condition);//模糊查询
-        params.put("start",(page-1)*pageSize);
-        params.put("pageSize",pageSize);
+        params.put("condition", condition);//模糊查询
+        params.put("start", (page - 1) * pageSize);
+        params.put("pageSize", pageSize);
 
 
         //获取总记录数据
@@ -68,8 +65,6 @@ public class MaterialServiceImpl implements MaterialService {
 
         //获取查询的数据
         List<Material> list = materialMapper.findListByMapUnPass(params);
-
-
 
 
         result.setData(list);

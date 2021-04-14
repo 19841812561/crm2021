@@ -1,16 +1,17 @@
 package com.example.crm.service;
 
-import com.example.crm.model.*;
+import com.example.crm.model.Material;
+import com.example.crm.model.PageResult;
+import com.example.crm.model.RiseCount;
 
 import java.util.List;
 
 public interface MaterialService {
-    public PageResult<Material> findPageResult(Material condition, int page, int pageSize);
+    PageResult<Material> findPageResult(Material condition, int page, int pageSize, int checkFlg);
 
     PageResult<Material> findPageResultUnPass(Material condition, int page, int pageSize);
 
-    public void save(Material material);
-
+    void save(Material material);
 
     Material findByIdOrder(String id);
 
@@ -19,6 +20,5 @@ public interface MaterialService {
     void update(Material material);
 
     List<RiseCount> getRiseCount();
-
-
+    
 }

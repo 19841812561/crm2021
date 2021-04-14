@@ -6,17 +6,18 @@
     <!--    公共的sql片段-->
     <sql id="search_where">
         <where>
+            1 = 1
             <if test="condition.username != null and condition.username != ''">
-                username like '%${condition.username}%'
+                and username like '%${condition.username}%'
             </if>
             <if test="condition.identity != null and condition.identity != ''">
-                identity like '%${condition.identity}%'
+                and identity like '%${condition.identity}%'
             </if>
             <if test="condition.power != null and condition.power != ''">
-                power like '%${condition.power}%'
+                and power like '%${condition.power}%'
             </if>
             <if test="condition.start != null and condition.start != ''">
-                start like '%${condition.start}%'
+                and start like '%${condition.start}%'
             </if>
 
         </where>

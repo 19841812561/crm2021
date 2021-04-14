@@ -6,27 +6,23 @@
     <!--    公共的sql片段-->
     <sql id="search_where">
         <where>
+            1 = 1
             <if test="condition.name != null and condition.name != ''">
-                name like '%${condition.name}%'
+                and name like '%${condition.name}%'
             </if>
-
             <if test="condition.type != null and condition.type != ''">
-                type like '%${condition.type}%'
+                and type like '%${condition.type}%'
             </if>
-
             <if test="condition.comefrom != null and condition.comefrom != ''">
-                comefrom like '%${condition.comefrom}%'
+                and comefrom like '%${condition.comefrom}%'
             </if>
-
             <if test="condition.receive != null and condition.receive != ''">
-                receive like '%${condition.receive}%'
+                and receive like '%${condition.receive}%'
             </if>
-
             <if test="condition.deal != null and condition.deal != ''">
-                deal like '%${condition.deal}%'
+                and deal like '%${condition.deal}%'
             </if>
-
-            state = '1'
+            and state = #{flg}
         </where>
     </sql>
     <select id="findCountByMap" parameterType="map" resultType="int">
@@ -38,7 +34,7 @@
     <select id="findListByMap" parameterType="map" resultType="material">
         select * from material_history
         <include refid="search_where"></include>
-        order by id limit #{start },#{pageSize};
+        order by id limit #{start}, #{pageSize};
 
     </select>
 
