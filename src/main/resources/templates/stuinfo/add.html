@@ -15,82 +15,106 @@
     <div class="layui-form-item">
 
         <div class="layui-inline">
-            <label class="layui-form-label">用户名</label>
+            <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="tel" name="username" id="username"  autocomplete="off" class="layui-input">
+                <input type="tel" name="username" id="username" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="text" name="password" id="password"  autocomplete="off" class="layui-input">
+                <input type="text" name="password" id="password" autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="男" title="男">
+                <input type="radio" name="sex" value="女" title="女">
+                <input type="radio" name="sex" value=" " title="全部" checked="">
+            </div>
 
+        </div>
     </div>
 
     <div class="layui-form-item">
 
         <div class="layui-inline">
-            <label class="layui-form-label">身份</label>
+            <label class="layui-form-label">处理记录</label>
             <div class="layui-input-inline">
-                <input type="tel" name="identity" id="identity"  autocomplete="off" class="layui-input">
+                <input type="tel" name="count" id="count" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">等级</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="identity" id="identity" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="power" id="power" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">是否启用</label>
             <div class="layui-input-inline">
-                <input type="text" name="state" id="state"  autocomplete="off" class="layui-input">
+                <input type="text" name="state" id="state" autocomplete="off" class="layui-input">
             </div>
         </div>
 
     </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button type="button" onclick="doSave();" class="layui-btn"  lay-filter="demo1">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" onclick="doSave();" class="layui-btn" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
+    </div>
 
 </from>
 
 <script>
-    var $,layer;
-    layui.use(['form','laydate'],function (){
+    var $, layer;
+    layui.use(['form', 'laydate'], function () {
         var laydate = layui.laydate;
         $ = layui.jquery;
         layer = layui.layer;
         //日期
         laydate.render({
-            elem:'#laydate'
+            elem: '#laydate'
         });
     })
 
-    function doSave(){
+    function doSave() {
         //alert("vvv");
         $.ajax({
-            type:"post",
-            url:"/stuinfo/save",
-            data:{
+            type: "post",
+            url: "/stuinfo/save",
+            data: {
 
-                username:$("#username").val(),
-                password:$("#password").val(),
-                identity:$("#identity").val(),
-                state:$("#state").val()
+                username: $("#username").val(),
+                password: $("#password").val(),
+                identity: $("#identity").val(),
+                state: $("#state").val()
 
             },
-            success:function (data){
-                if (data.success == 1){
-                    layer.alert("添加成功",{yes:function (){
-                        parent.layer.closeAll();
-                        }})
-                }else{
-                    layer.alert("添加失败",{yes:function (){
+            success: function (data) {
+                if (data.success == 1) {
+                    layer.alert("添加成功", {
+                        yes: function () {
                             parent.layer.closeAll();
-                        }})
+                        }
+                    })
+                } else {
+                    layer.alert("添加失败", {
+                        yes: function () {
+                            parent.layer.closeAll();
+                        }
+                    })
                 }
             },
-            error:function (){
+            error: function () {
 
             }
 

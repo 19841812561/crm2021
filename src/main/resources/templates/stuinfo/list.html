@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
     <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/echarts/echarts.min.js}" charset="utf-8"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
@@ -17,16 +18,16 @@
 <br>
 <div class="layui-bg-gray" style="padding: 30px;">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-md12">
+        <div class="layui-col-md6">
             <div class="layui-card">
-                <!--                搜索内容的面板-->
-                <div class="layui-card-body" style="width: 100%; height: 650px">
+                <div class="layui-card-body">
                     <from class="layui-form" action="" id="searchFrom">
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">用户名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="username" id="username" placeholder="请输入用户名"
+                                    <input type="text" name="username" id="username"
+                                           placeholder="请输入用户名"
                                            autocomplete="off"
                                            class="layui-input">
                                 </div>
@@ -47,14 +48,16 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">权限</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="power" id="power" placeholder="请输入昵称" autocomplete="off"
+                                    <input type="text" name="power" id="power" placeholder="请输入昵称"
+                                           autocomplete="off"
                                            class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label">星级</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="start" id="start" placeholder="请输入昵称" autocomplete="off"
+                                    <input type="text" name="start" id="start" placeholder="请输入昵称"
+                                           autocomplete="off"
                                            class="layui-input">
                                 </div>
                             </div>
@@ -74,13 +77,15 @@
                                         <i class="layui-icon layui-icon-refresh"
                                            style="font-size: 15px; color: black;"> 重置</i></button>
 
-                                    <button type="button" onclick="doSearch()" class="layui-btn layui-btn-normal"
+                                    <button type="button" onclick="doSearch()"
+                                            class="layui-btn layui-btn-normal"
                                             style="margin-top: 10px">
                                         <i class="layui-icon layui-icon-search"
                                            style="font-size: 15px; color: white;"> 查询</i></button>
 
                                     <button type="button" class="layui-btn"
-                                            style="margin-top: 10px;background-color: #2ec770;" onclick="doAdd()">
+                                            style="margin-top: 10px;background-color: #2ec770;"
+                                            onclick="doAdd()">
                                         <i class="layui-icon layui-icon-add-1"
                                            style="font-size: 15px; color: white;"> 添加</i>
 
@@ -93,7 +98,13 @@
                     <!--                用户展示的面板-->
                     <table class="layui-hide" id="test" lay-filter="test"></table>
                 </div>
-
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card" style="height: 570px;">
+                <div class="layui-card-body">
+                    <div id="container" style="height: 100%"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -128,7 +139,9 @@
 </script>
 <!--isManager字段的开关按钮-->
 <script type="text/html" id="switchOnOff">
-    <input type="checkbox" {{d.isManager=="1"?"":"checked"}} name="isManager" lay-skin="switch"
+    <!--定义一个mid属性，提供给update操作使用-->
+    <input type="checkbox" mid={{d.id}} {{d.isManager=="1"?"checked":""}} name="isManager"
+           lay-skin="switch"
            lay-filter="switchTest"
            lay-text="是|否">
 </script>
@@ -170,7 +183,7 @@
                     , {field: 'identity', title: '等级', width: 155}
                     , {field: 'power', title: '权限', width: 155}
                     , {field: 'start', title: '星级', width: 155}
-                    , {field: 'state', title: '是否启用', toolbar: '#switchOnOff', width: 155}
+                    , {field: 'state', title: '是否启用', align: 'center', templet: '#switchOnOff', width: 155}
                     , {field: 'right', title: '操作', toolbar: '#barDemo', width: 165}
 
                 ]
@@ -222,7 +235,7 @@
             parent.layer.open({
                 type: 2,//2跳转添加页面
                 offset: 'auto',
-                title: '添加课程订单',
+                title: '管理员信息',
                 content: '/stuinfo/detail?id=' + orderId,
                 area: ['1000px', '600px'],
                 btn: '关闭全部',
@@ -256,7 +269,7 @@
                 parent.layer.open({
                     type: 2,//2跳转添加页面
                     offset: 'auto',
-                    title: '修改课程订单',
+                    title: '修改管理员信息',
                     content: '/stuinfo/change?id=' + orderId,
                     area: ['1000px', '600px'],
                     btn: '关闭全部',
@@ -292,7 +305,7 @@
         parent.layer.open({
             type: 2,//2跳转添加页面
             offset: 'auto',
-            title: '添加课程订单',
+            title: '添加管理员信息',
             content: '/stuinfo/add',
             area: ['1000px', '600px'],
             btn: '关闭全部',
@@ -316,20 +329,30 @@
     开关按钮
      */
 
-    layui.use(['form'], function () {
+    layui.use(['form', 'laydate', 'layedit'], function () {
         var form = layui.form,
             layer = layui.layer,
             layedit = layui.layedit,
             laydate = layui.laydate;
 
+        //监听isManager开关按钮,更新isManager
+        //下面的switchTest是开关的lay-filter值
+        form.on('switch(switchTest)', function (obj) {
+            var id = $(this).attr('mid');//为了获取开关所在行的信息，需要绑定上所在行的id
+            console.info('id:' + id);
+            var isManager = obj.elem.checked ? "1" : "0";
+            console.info('isManager:' + isManager);
+        });
+
+
         //日期
         laydate.render({
             elem: '#date'
         });
-        laydate.render({
-            elem: '#date1'
-        });
-
+        // laydate.render({
+        //     elem: '#date1'
+        // });
+        //
         //创建一个编辑器
         var editIndex = layedit.build('LAY_demo_editor');
 
@@ -348,21 +371,21 @@
         //     }
         // });
 
-        //监听指定开关
-        form.on('switch(switchTest)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        //监听提交
-        form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
+        // //监听指定开关
+        // form.on('switch(switchTest)', function (data) {
+        //     layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+        //         offset: '6px'
+        //     });
+        //     layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        // });
+        //
+        // //监听提交
+        // form.on('submit(demo1)', function (data) {
+        //     layer.alert(JSON.stringify(data.field), {
+        //         title: '最终的提交信息'
+        //     })
+        //     return false;
+        // });
 
         //表单赋值
         layui.$('#LAY-component-form-setval').on('click', function () {
@@ -387,6 +410,85 @@
         // });
 
     });
+
+
+</script>
+
+
+<script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var option;
+
+
+    option = {
+        title: {
+            text: '管理员月处理量'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['admin', '朱文龙', '邓正忍', '吴海华', '某某人']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '6%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['10月', '11月', '12月', '1月', '2月', '3月', '4月']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: 'admin',
+                type: 'line',
+                stack: '总量',
+                data: [120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                name: '朱文龙',
+                type: 'line',
+                stack: '总量',
+                data: [220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name: '邓正忍',
+                type: 'line',
+                stack: '总量',
+                data: [150, 232, 201, 154, 190, 330, 410]
+            },
+            {
+                name: '吴海华',
+                type: 'line',
+                stack: '总量',
+                data: [320, 332, 301, 334, 390, 330, 320]
+            },
+            {
+                name: '某某人',
+                type: 'line',
+                stack: '总量',
+                data: [820, 932, 901, 934, 1290, 1330, 1320]
+            }
+        ]
+    };
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
 
 </script>
 

@@ -1,10 +1,8 @@
 package com.example.crm.web.controller;
 
-import com.example.crm.model.Admin;
 import com.example.crm.model.CURDResult;
 import com.example.crm.model.Material;
 import com.example.crm.model.PageResult;
-import com.example.crm.service.AdminService;
 import com.example.crm.service.MaterialService;
 import com.example.crm.service.TotalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,10 @@ public class MaterialController {
         return "material/list";
     }
 
+    @RequestMapping("listuse")
+    public String listuse() {
+        return "material/listuse";
+    }
 
     @RequestMapping("listUnPass")
     public String listUnPass() {
@@ -54,7 +56,7 @@ public class MaterialController {
 
     @RequestMapping("delete")
     @ResponseBody
-    public CURDResult delete(String id,String name) {
+    public CURDResult delete(String id, String name) {
         CURDResult result = new CURDResult();
         materialService.deleteByIdOrder(id);
         System.out.println(name);

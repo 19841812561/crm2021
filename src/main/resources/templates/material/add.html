@@ -20,14 +20,29 @@
             </div>
         </div>
         <div class="layui-inline">
+            <label class="layui-form-label">类别</label>
+            <div class="layui-input-inline">
+                <input type="text" name="type" id="type" placeholder="" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
             <label class="layui-form-label">数量</label>
             <div class="layui-input-inline">
-                <input type="text" name="specs" id="specs"  placeholder="" autocomplete="off"
+                <input type="text" name="specs" id="specs" placeholder="" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
 
-
+        <label class="layui-form-label">来源方式</label>
+        <div class="layui-input-inline">
+            <select name="modules" lay-verify="required" lay-search="">
+                <option value="">请选择来源方式</option>
+                <option value="1">捐赠</option>
+                <option value="2">募集</option>
+                <option value="3">购买</option>
+            </select>
+        </div>
     </div>
 
     <div class="layui-form-item">
@@ -36,6 +51,32 @@
             <div class="layui-input-inline">
                 <input type="tel" name="unit" id="unit" autocomplete="off" class="layui-input">
             </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">相关人士</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="people" id="people" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <label class="layui-form-label">受理人</label>
+        <div class="layui-input-inline">
+            <select name="modules" lay-verify="required" lay-search="">
+                <option value="">请选择受理人</option>
+                <option value="1">admin</option>
+                <option value="2">朱文龙</option>
+                <option value="3">吴海华</option>
+                <option value="4">邓正忍</option>
+            </select>
+        </div>
+        <label class="layui-form-label">处理人</label>
+        <div class="layui-input-inline">
+            <select name="modules" lay-verify="required" lay-search="">
+                <option value="">请选择处理人</option>
+                <option value="1">admin</option>
+                <option value="2">朱文龙</option>
+                <option value="3">吴海华</option>
+                <option value="4">邓正忍</option>
+            </select>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">状态</label>
@@ -51,52 +92,56 @@
         </div>
     </div>
 
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button type="button" onclick="doSave();" class="layui-btn"  lay-filter="demo1">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" onclick="doSave();" class="layui-btn" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
+    </div>
 
 </from>
 
 <script>
-    var $,layer;
-    layui.use(['form','laydate'],function (){
+    var $, layer;
+    layui.use(['form', 'laydate'], function () {
         var laydate = layui.laydate;
         $ = layui.jquery;
         layer = layui.layer;
         //日期
         laydate.render({
-            elem:'#laydate'
+            elem: '#laydate'
         });
     })
 
-    function doSave(){
+    function doSave() {
         //alert("vvv");
         $.ajax({
-            type:"get",
-            url:"/material/save",
-            data:{
-                name:$("#name").val(),
-                specs:$("#specs").val(),
-                unit:$("#unit").val(),
-                state:$("#state").val(),
-                date:$("#laydate").val()
+            type: "get",
+            url: "/material/save",
+            data: {
+                name: $("#name").val(),
+                specs: $("#specs").val(),
+                unit: $("#unit").val(),
+                state: $("#state").val(),
+                date: $("#laydate").val()
 
             },
-            success:function (data){
-                if (data.success == 1){
-                    layer.alert("添加成功",{yes:function (){
-                        parent.layer.closeAll();
-                        }})
-                }else{
-                    layer.alert("添加失败",{yes:function (){
+            success: function (data) {
+                if (data.success == 1) {
+                    layer.alert("添加成功", {
+                        yes: function () {
                             parent.layer.closeAll();
-                        }})
+                        }
+                    })
+                } else {
+                    layer.alert("添加失败", {
+                        yes: function () {
+                            parent.layer.closeAll();
+                        }
+                    })
                 }
             },
-            error:function (){
+            error: function () {
 
             }
 

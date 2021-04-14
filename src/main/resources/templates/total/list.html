@@ -20,6 +20,14 @@
 <div class="layui-bg-gray" style="padding: 30px;">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md6">
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+                    <div id="container" style="height: 100%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
             <div class="layui-card" style="height: 850px;">
                 <from class="layui-form" action="" id="searchFrom">
                     <div class="layui-form-item">
@@ -43,19 +51,39 @@
                 <div class="layui-card-body" style="height: 400px;">
 
                     <table class="layui-hide" id="test" lay-filter="test"></table>
-                    <p style="text-align: center">物品均来自于他人捐赠以及正规途径，疫情物资紧缺请认真处理</p>
+
                 </div>
+
+                <div class="layui-card-body" style="height: 400px; margin-top: 40px">
+                    <div class="layui-tab layui-tab-card" style="width: 100%;">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">N95(9132/1860)防护口罩</li>
+                            <li>医用防护口罩</li>
+                            <li>速干消毒药剂</li>
+                            <li>消毒泡腾片</li>
+                            <li>洗凝胶</li>
+                            <li>免洗手消毒剂</li>
+                            <li>乳胶手套</li>
+                        </ul>
+                        <div class="layui-tab-content" style="height: 100px;">
+                            <div class="layui-tab-item layui-show">
+                                1. 宽度足够，就不会出现右上图标；宽度不够，就会开启展开功能。
+                                <br>2. 如果你的宽度是自适应的，Tab会自动判断是否需要展开，并适用于所有风格。
+                            </div>
+                            <div class="layui-tab-item">2</div>
+                            <div class="layui-tab-item">3</div>
+                            <div class="layui-tab-item">4</div>
+                            <div class="layui-tab-item">5</div>
+                            <div class="layui-tab-item">6</div>
+                            <div class="layui-tab-item">7</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
-        <div class="layui-col-md6">
-            <div class="layui-card">
 
-                <div class="layui-card-body">
-                    <div id="container" style="height: 100%"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -226,7 +254,7 @@
                     backgroundColor: '#2c343c',
 
                     title: {
-                        text: 'Customized Pie',
+                        text: '物资汇总图',
                         left: 'center',
                         top: 20,
                         textStyle: {
@@ -291,6 +319,51 @@
         })
     })
 </script>
+
+<script>
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            tabAdd: function () {
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项' + (Math.random() * 1000 | 0) //用于演示
+                    , content: '内容' + (Math.random() * 1000 | 0)
+                    , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            , tabDelete: function (othis) {
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            }
+            , tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function (elem) {
+            location.hash = 'test=' + $(this).attr('lay-id');
+        });
+
+    });
+</script>
+
 
 </body>
 </html>
