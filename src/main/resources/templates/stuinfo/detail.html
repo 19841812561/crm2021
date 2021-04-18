@@ -18,46 +18,64 @@
         <div class="layui-inline">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-inline">
-                <input type="tel" name="username" id="username" th:value="${admin.username}" readonly="readonly" autocomplete="off" class="layui-input">
+                <input type="tel" name="username" id="username" th:value="${admin.username}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="text" name="password" id="password" th:value="${admin.password}" readonly="readonly" autocomplete="off" class="layui-input">
+                <input type="text" name="password" id="password" th:value="${admin.password}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <input type="text" name="gender" id="gender" th:value="${admin.gender}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
+            </div>
 
+        </div>
     </div>
 
     <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">处理记录</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="count" id="count" th:value="${admin.count}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">等级</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="identity" id="identity" th:value="${admin.identity}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="power" id="power" th:value="${admin.power}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
 
-        <div class="layui-inline">
-            <label class="layui-form-label">身份</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="identity" id="identity" th:value="${admin.identity}" readonly="readonly" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">是否启用</label>
-            <div class="layui-input-inline">
-                <input type="text" name="state" id="state" th:value="${admin.state}" readonly="readonly" autocomplete="off" class="layui-input">
-            </div>
-        </div>
 
     </div>
 
 </from>
 
 <script>
-    var $,layer;
-    layui.use(['form','laydate'],function (){
+    var $, layer;
+    layui.use(['form', 'laydate'], function () {
         var laydate = layui.laydate;
         $ = layui.jquery;
         layer = layui.layer;
         //日期
         laydate.render({
-            elem:'#laydate'
+            elem: '#laydate'
         });
     })
 

@@ -2,18 +2,21 @@ package com.example.crm.service;
 
 import com.example.crm.model.AddressCount;
 import com.example.crm.model.Admin;
-import com.example.crm.model.CourseOrder;
 import com.example.crm.model.PageResult;
+import com.example.crm.model.State;
 
 import java.util.List;
 
 public interface AdminService {
-    public PageResult<Admin> findPageResult(Admin condition, int page, int pageSize);
+    PageResult<Admin> findPageResult(Admin condition, int page, int pageSize);
 
-    public void save(Admin admin);
+    void save(Admin admin);
 
 
     Admin findByIdOrder(String id);
+
+
+    void changeStateById(String id, String state);
 
     void deleteByIdOrder(String id);
 
@@ -24,4 +27,6 @@ public interface AdminService {
     Admin login(String username);
 
     String findAdminCount();
+
+    void updateState(State state);
 }

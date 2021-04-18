@@ -89,6 +89,19 @@ public class MaterialController {
         return result;
     }
 
+
+    @RequestMapping("pass")
+    @ResponseBody
+    public CURDResult pass(int id) {
+        CURDResult result = new CURDResult();
+        //{success:1;msg:""}
+
+        materialService.pass(id);
+        
+
+        return result;
+    }
+
     /**
      * page 显示的当前页
      * limit 每次显示多少条

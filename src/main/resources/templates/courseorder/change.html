@@ -22,11 +22,20 @@
             </div>
         </div>
         <div class="layui-inline">
+            <!--            <label class="layui-form-label">性别</label>-->
+            <!--            <div class="layui-input-inline">-->
+            <!--                <input type="text" name="gender" id="gender" th:value="${order.gender}" placeholder=""-->
+            <!--                       autocomplete="off"-->
+            <!--                       class="layui-input">-->
+            <!--            </div>-->
+
             <label class="layui-form-label">性别</label>
             <div class="layui-input-inline">
-                <input type="text" name="gender" id="gender" th:value="${order.gender}" placeholder=""
-                       autocomplete="off"
-                       class="layui-input">
+                <select name="modules" lay-verify="required" lay-search="" id="gender">
+                    <option value="">请选择性别</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
             </div>
         </div>
         <div class="layui-inline">
@@ -39,10 +48,23 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">籍贯</label>
+            <!--            <label class="layui-form-label">籍贯</label>-->
+            <!--            <div class="layui-input-inline">-->
+            <!--                <input type="tel" name="address" id="address" th:value="${order.address}" lay-verify="required|phone"-->
+            <!--                       autocomplete="off" class="layui-input">-->
+            <!--            </div>-->
+
+            <label class="layui-form-label">地区</label>
             <div class="layui-input-inline">
-                <input type="tel" name="address" id="address" th:value="${order.address}" lay-verify="required|phone"
-                       autocomplete="off" class="layui-input">
+                <select name="modules" lay-verify="required" lay-search="" id="address">
+                    <option value="">请选择所在省份</option>
+                    <option value="北京">北京</option>
+                    <option value="天津">天津</option>
+                    <option value="上海">上海</option>
+                    <option value="陕西">陕西</option>
+                    <option value="重庆">重庆</option>
+                    <option value="湖南">湖南</option>
+                </select>
             </div>
         </div>
         <div class="layui-inline">
@@ -77,6 +99,11 @@
                        class="layui-input">
             </div>
         </div>
+        <label class="layui-form-label">捐赠次数</label>
+        <div class="layui-input-inline">
+            <input type="tel" name="count" id="count" th:value="${order.count}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
 
     </div>
     <div class="layui-form-item">
@@ -87,7 +114,7 @@
 
 </from>
 
-<script>
+<script th:inline="javascript">
     var $, layer;
     layui.use(['form', 'laydate'], function () {
         var laydate = layui.laydate;
@@ -97,6 +124,14 @@
         laydate.render({
             elem: '#laydate'
         });
+
+        var gender = [[${order.gender}]]
+        var select = 'dd[lay-value=' + gender + ']';
+        $('#gender').siblings("div.layui-form-select").find(select).click();
+
+        var address = [[${order.address}]]
+        var select = 'dd[lay-value=' + address + ']';
+        $('#address').siblings("div.layui-form-select").find(select).click();
     })
 
     function doSave() {
@@ -113,7 +148,8 @@
                 qq: $("#qq").val(),
                 email: $("#email").val(),
                 username: $("#username").val(),
-                password: $("#password").val()
+                password: $("#password").val(),
+                count: $("#count").val(),
 
             },
             success: function (data) {

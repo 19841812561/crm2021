@@ -25,14 +25,14 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">地区</label>
                             <div class="layui-input-inline">
-                                <select name="modules" lay-verify="required" lay-search="">
+                                <select name="modules" lay-verify="required" lay-search="" id="address">
                                     <option value="">请选择所在省份</option>
-                                    <option value="1">北京</option>
-                                    <option value="2">天津</option>
-                                    <option value="3">上海</option>
-                                    <option value="4">陕西</option>
-                                    <option value="5">重庆</option>
-                                    <option value="6">湖南</option>
+                                    <option value="北京">北京</option>
+                                    <option value="天津">天津</option>
+                                    <option value="上海">上海</option>
+                                    <option value="陕西">陕西</option>
+                                    <option value="重庆">重庆</option>
+                                    <option value="湖南">湖南</option>
                                 </select>
                             </div>
                             <div class="layui-inline">
@@ -53,10 +53,12 @@
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label">性别</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="sex" value="男" title="男">
-                                    <input type="radio" name="sex" value="女" title="女">
-                                    <input type="radio" name="sex" value=" " title="全部" checked="">
+                                <div class="layui-input-inline">
+                                    <select name="modules" lay-verify="required" lay-search="" id="gender">
+                                        <option value="">请选择性别</option>
+                                        <option value="男">男</option>
+                                        <option value="女">女</option>
+                                    </select>
                                 </div>
 
                             </div>
@@ -271,14 +273,16 @@
     function doSearch() {
         //通过jquery获取参数
         var name = $("#name").val();
-        // var address = $("#address").val();
+        var address = $("#address").val();
         var email = $("#email").val();
+        var gender = $("#gender").val();
         var username = $("#username").val();
         table.reload('orderTable', {
             where: {//附加额外条件
                 name: name,
-                // address: address,
+                address: address,
                 email: email,
+                gender: gender,
                 username: username
             }, page: {
                 curr: 1

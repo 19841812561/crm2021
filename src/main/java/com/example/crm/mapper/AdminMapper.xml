@@ -36,8 +36,8 @@
 
     <insert id="insert" parameterType="admin">
         insert into admin
-        (id, name, password, gander, username, count, identity, power, start, state)
-        values (null, #{name}, #{password}, #{gander}, #{username}, #{count}, #{identity}, #{power}, #{start}, #{state})
+        (id, name, password, gender, username, count, identity, power, start, state)
+        values (null, #{name}, #{password}, #{gender}, #{username}, #{count}, #{identity}, #{power}, #{start}, '0')
     </insert>
 
     <select id="findByOrderId" parameterType="string" resultType="admin">
@@ -56,13 +56,19 @@
         update admin
         set name=#{name},
             password=#{password},
-            gander=#{gander},
+            gender=#{gender},
             username=#{username},
             count=#{count},
             identity =#{identity},
             power=#{power},
             start=#{start},
-            state=#{state}
+            state='0'
+        where id = #{id}
+    </update>
+
+    <update id="updateState" parameterType="state">
+        update admin
+        set state=#{state}
         where id = #{id}
     </update>
 

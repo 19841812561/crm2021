@@ -1,13 +1,11 @@
 package com.example.crm.service.impl;
 
 import com.example.crm.mapper.AdminMapper;
-import com.example.crm.mapper.CourseOrderMapper;
 import com.example.crm.model.AddressCount;
 import com.example.crm.model.Admin;
-import com.example.crm.model.CourseOrder;
 import com.example.crm.model.PageResult;
+import com.example.crm.model.State;
 import com.example.crm.service.AdminService;
-import com.example.crm.service.ICourseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +25,11 @@ public class AdminServiceImpl implements AdminService {
         /**
          * 查询参数先设置为空
          */
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         //select * from user limit 0,10
-        params.put("condition",condition);//模糊查询
-        params.put("start",(page-1)*pageSize);
-        params.put("pageSize",pageSize);
+        params.put("condition", condition);//模糊查询
+        params.put("start", (page - 1) * pageSize);
+        params.put("pageSize", pageSize);
 
 
         //获取总记录数据
@@ -41,8 +39,6 @@ public class AdminServiceImpl implements AdminService {
 
         //获取查询的数据
         List<Admin> list = adminMapper.findListByMap(params);
-
-
 
 
         result.setData(list);
@@ -57,6 +53,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin findByIdOrder(String id) {
         return adminMapper.findByOrderId(id);
+    }
+
+    @Override
+    public void changeStateById(String id, String state) {
+        adminMapper.changeStateById(id, state);
     }
 
     @Override
@@ -82,5 +83,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public String findAdminCount() {
         return adminMapper.findAdminCount();
+    }
+
+    @Override
+    public void updateState(State state) {
+        adminMapper.updateState(state);
     }
 }

@@ -34,13 +34,14 @@
             </div>
         </div>
 
+
         <label class="layui-form-label">来源方式</label>
         <div class="layui-input-inline">
-            <select name="modules" lay-verify="required" lay-search="">
+            <select name="modules" lay-verify="required" lay-search="" id="comefrom">
                 <option value="">请选择来源方式</option>
-                <option value="1">捐赠</option>
-                <option value="2">募集</option>
-                <option value="3">购买</option>
+                <option value="捐赠">捐赠</option>
+                <option value="募集">募集</option>
+                <option value="购买">购买</option>
             </select>
         </div>
     </div>
@@ -60,22 +61,22 @@
         </div>
         <label class="layui-form-label">受理人</label>
         <div class="layui-input-inline">
-            <select name="modules" lay-verify="required" lay-search="">
+            <select name="modules" lay-verify="required" lay-search="" id="receive">
                 <option value="">请选择受理人</option>
-                <option value="1">admin</option>
-                <option value="2">朱文龙</option>
-                <option value="3">吴海华</option>
-                <option value="4">邓正忍</option>
+                <option value="admin">admin</option>
+                <option value="朱文龙">朱文龙</option>
+                <option value="吴海华">吴海华</option>
+                <option value="邓正忍">邓正忍</option>
             </select>
         </div>
         <label class="layui-form-label">处理人</label>
         <div class="layui-input-inline">
-            <select name="modules" lay-verify="required" lay-search="">
+            <select name="modules" lay-verify="required" lay-search="" id="deal">
                 <option value="">请选择处理人</option>
-                <option value="1">admin</option>
-                <option value="2">朱文龙</option>
-                <option value="3">吴海华</option>
-                <option value="4">邓正忍</option>
+                <option value="admin">admin</option>
+                <option value="朱文龙">朱文龙</option>
+                <option value="吴海华">吴海华</option>
+                <option value="邓正忍">邓正忍</option>
             </select>
         </div>
         <div class="layui-inline">
@@ -122,6 +123,11 @@
                 name: $("#name").val(),
                 specs: $("#specs").val(),
                 unit: $("#unit").val(),
+                type: $("#type").val(),
+                comefrom: $("#comefrom").val(),
+                people: $("#people").val(),
+                receive: $("#receive").val(),
+                deal: $("#deal").val(),
                 state: $("#state").val(),
                 date: $("#laydate").val()
 

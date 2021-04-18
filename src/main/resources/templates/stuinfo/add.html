@@ -17,7 +17,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="tel" name="username" id="username" autocomplete="off" class="layui-input">
+                <input type="tel" name="name" id="name" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
@@ -28,10 +28,12 @@
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-                <input type="radio" name="sex" value="男" title="男">
-                <input type="radio" name="sex" value="女" title="女">
-                <input type="radio" name="sex" value=" " title="全部" checked="">
+            <div class="layui-input-inline">
+                <select name="modules" lay-verify="required" lay-search="" id="gender">
+                    <option value="">请选择性别</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
             </div>
 
         </div>
@@ -57,15 +59,21 @@
                 <input type="tel" name="power" id="power" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">是否启用</label>
-            <div class="layui-input-inline">
-                <input type="text" name="state" id="state" autocomplete="off" class="layui-input">
-            </div>
-        </div>
 
     </div>
     <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">星级</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="start" id="start" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="username" id="username" autocomplete="off" class="layui-input">
+            </div>
+        </div>
         <div class="layui-input-block">
             <button type="button" onclick="doSave();" class="layui-btn" lay-filter="demo1">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -93,10 +101,14 @@
             url: "/stuinfo/save",
             data: {
 
-                username: $("#username").val(),
+                name: $("#name").val(),
                 password: $("#password").val(),
+                gender: $("#gender").val(),
+                username: $("#username").val(),
+                count: $("#count").val(),
                 identity: $("#identity").val(),
-                state: $("#state").val()
+                power: $("#power").val(),
+                start: $("#start").val()
 
             },
             success: function (data) {

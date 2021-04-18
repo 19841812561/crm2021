@@ -1,40 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%" lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>map</title>
-    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
-    <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
-    <script th:src="@{/echarts/echarts.min.js}" charset="utf-8"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/map/raphael-min.js}"></script>
+    <script type="text/javascript" th:src="@{/map/chinaMapConfig.js}"></script>
+    <script type="text/javascript" th:src="@{/map/map.js}"></script>
 </head>
+
 <body>
-<div id="container" style="height: 100%"></div>
-<script>
-    var dom = document.getElementById("container");
-    var myChart = echarts.init(dom);
-    var app = {};
+<ul>
+    <!--    <li>固定大小地图-->
+    <!--        <div id="ChinaMap">-->
+    <!--        </div>-->
+    <!--    </li>-->
+    <li>自定义宽高地图
+        <div id="ChinaMap1">
+        </div>
+    </li>
+</ul>
 
-    var option;
-
-    layui.use('layer', function () {
-        var $ = layui.jquery;
-        $.ajax({
-            url: 'http://localhost:8080/static/map/china.json',
-            success: function (respData) {
-                //把json数据转化为数组
-
-                // //声明日期和收入的2个数组
-                // var address = [];
-                // var numbers = [];
-                //
-                // for (var i=0;i<respData.length;i++){
-                //     address[i] = respData[i].address;
-                //     numbers[i] = respData[i].number;
-                // }
-                console.log(respData);
-            }
-        })
-    })
-</script>
 </body>
+<script>
+    // $('#ChinaMap').SVGMap({
+    //     mapName: 'china'
+    // });
+
+    $('#ChinaMap1').SVGMap({
+        mapName: 'china',
+        mapWidth: 600,
+        mapHeight: 500
+    });
+</script>
+
 </html>

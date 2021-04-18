@@ -15,87 +15,137 @@
     <div class="layui-form-item">
 
         <div class="layui-inline">
-            <label class="layui-form-label">用户名</label>
+            <label class="layui-form-label">名称</label>
             <div class="layui-input-inline">
                 <input type="hidden" name="id" id="id" th:value="${admin.id}">
-                <input type="tel" name="username" id="username" th:value="${admin.username}"  autocomplete="off" class="layui-input">
+                <input type="tel" name="username" id="name" th:value="${admin.name}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="text" name="password" id="password" th:value="${admin.password}"  autocomplete="off" class="layui-input">
+                <input type="text" name="password" id="password" th:value="${admin.password}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <input type="text" name="gender" id="gender" th:value="${admin.gender}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <!--            <label class="layui-form-label">性别</label>-->
+            <!--            <div class="layui-input-inline">-->
+            <!--                <select name="modules" lay-verify="required" lay-search="" id="gender">-->
+            <!--                    <option value="">请选择性别</option>-->
+            <!--                    <option value="男">男</option>-->
+            <!--                    <option value="女">女</option>-->
+            <!--                </select>-->
+            <!--            </div>-->
 
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="username" id="username" th:value="${admin.username}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
     </div>
 
     <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">处理记录</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="count" id="count" th:value="${admin.count}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">等级</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="identity" id="identity" th:value="${admin.identity}" readonly="readonly"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="power" id="power" th:value="${admin.power}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
 
-        <div class="layui-inline">
-            <label class="layui-form-label">身份</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="identity" id="identity" th:value="${admin.identity}"  autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">是否启用</label>
-            <div class="layui-input-inline">
-                <input type="text" name="state" id="state" th:value="${admin.state}"  autocomplete="off" class="layui-input">
-            </div>
-        </div>
 
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="button" onclick="doSave();" class="layui-btn"  lay-filter="demo1">立即提交</button>
+            <button type="button" onclick="doSave();" class="layui-btn" lay-filter="demo1">立即提交</button>
         </div>
     </div>
 </from>
 
-<script>
-    var $,layer;
-    layui.use(['form','laydate'],function (){
+<script th:inline="javascript">
+    var $, layer;
+    layui.use(['form', 'laydate'], function () {
         var laydate = layui.laydate;
         $ = layui.jquery;
         layer = layui.layer;
         //日期
         laydate.render({
-            elem:'#laydate'
+            elem: '#laydate'
         });
+
+        /* var gender = [[${admin.gender}]]
+         var select = 'dd[lay-value=' + gender + ']';
+         $('#gender').siblings("div.layui-form-select").find(select).click();
+
+         var address = [[${order.address}]]
+         var select = 'dd[lay-value=' + address + ']';
+         $('#address').siblings("div.layui-form-select").find(select).click();*/
+
     })
 
-    function doSave(){
+    function doSave() {
         //alert("vvv");
         $.ajax({
-            type:"post",
-            url:"/stuinfo/update",
-            data:{
-                id:$("#id").val(),
-                username:$("#username").val(),
-                password:$("#password").val(),
-                identity:$("#identity").val(),
-                state:$("#state").val()
+            type: "post",
+            url: "/stuinfo/update",
+            data: {
+                id: $("#id").val(),
+                username: $("#name").val(),
+                password: $("#password").val(),
+                gender: $("#gender").val(),
+                username: $("#username").val(),
+                count: $("#count").val(),
+                identity: $("#identity").val(),
+                power: $("#power").val(),
 
             },
-            success:function (data){
-                if (data.success == 1){
-                    layer.alert("修改成功",{yes:function (){
-                        parent.layer.closeAll();
-                        }})
-                }else{
-                    layer.alert("修改失败",{yes:function (){
+            success: function (data) {
+                if (data.success == 1) {
+                    layer.alert("修改成功", {
+                        yes: function () {
                             parent.layer.closeAll();
-                        }})
+                        }
+                    })
+                } else {
+                    layer.alert("修改失败", {
+                        yes: function () {
+                            parent.layer.closeAll();
+                        }
+                    })
                 }
             },
-            error:function (){
+            error: function () {
 
             }
 
         })
     }
+
 </script>
 </body>
 </html>

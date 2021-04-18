@@ -77,7 +77,7 @@
         insert into material_history
         (id, name, type, specs, unit, comfrom, people, receive, deal, date, state)
         values (null, #{name}, #{type }, #{specs}, #{unit}, #{comefrom}, #{people}, #{receive}, #{deal}, #{date},
-                #{state})
+                '0')
     </insert>
 
     <select id="findByOrderId" parameterType="string" resultType="material">
@@ -104,6 +104,13 @@
             deal     = #{deal},
             date     = #{date},
             state    = #{state}
+
+        where id = #{id}
+    </update>
+
+    <update id="pass" parameterType="int">
+        update material_history
+        set state = '1'
 
         where id = #{id}
     </update>

@@ -16,17 +16,26 @@
         <div class="layui-inline">
             <label class="layui-form-label">名称</label>
             <div class="layui-input-inline">
-                <input type="text" name="name" id="name" th:value="${material.name}" autocomplete="off" class="layui-input">
+                <input type="hidden" name="id" id="id" th:value="${material.id}">
+                <input type="text" name="name" id="name" th:value="${material.name}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">类别</label>
+            <div class="layui-input-inline">
+                <input type="text" name="type" id="type" th:value="${material.type}" placeholder="" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">数量</label>
             <div class="layui-input-inline">
-                <input type="text" name="specs" id="specs" th:value="${material.specs}" placeholder="" autocomplete="off"
+                <input type="text" name="specs" id="specs" th:value="${material.specs}" placeholder=""
+                       autocomplete="off"
                        class="layui-input">
             </div>
         </div>
-
 
     </div>
 
@@ -34,34 +43,83 @@
         <div class="layui-inline">
             <label class="layui-form-label">规格</label>
             <div class="layui-input-inline">
-                <input type="tel" name="unit" id="unit" th:value="${material.unit}" autocomplete="off" class="layui-input">
+                <input type="text" name="unit" id="unit" th:value="${material.unit}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">相关人士</label>
+            <div class="layui-input-inline">
+                <input type="text" name="people" id="people" th:value="${material.people}" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-inline">
-                <input type="tel" name="state" id="state" th:value="${material.state}" autocomplete="off" class="layui-input">
+                <input type="text" name="receive" id="receive" th:value="${material.receive}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="text" name="comefrom" id="comefrom" th:value="${material.comefrom}" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="text" name="deal" id="deal" th:value="${material.deal}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="text" name="state" id="state" th:value="${material.state}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
             <label class="layui-form-label">日期选择</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="laydate" th:value="${material.date}" autocomplete="off" class="layui-input">
+                <input type="text" name="date" id="laydate" th:value="${material.date}" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
     </div>
 </from>
 
-<script>
-    var $,layer;
-    layui.use(['form','laydate'],function (){
+<script th:inline="javascript">
+    var $, layer;
+    layui.use(['form', 'laydate'], function () {
         var laydate = layui.laydate;
         $ = layui.jquery;
         layer = layui.layer;
         //日期
         laydate.render({
-            elem:'#laydate'
+            elem: '#laydate'
         });
+
+        var comefrom = [[${material.comefrom}]]
+        var select1 = 'dd[lay-value=' + comefrom + ']';
+        $('#comefrom').siblings("div.layui-form-select").find(select1).click();
+
+        var receive = [[${material.receive}]]
+        var select2 = 'dd[lay-value=' + receive + ']';
+        $('#receive').siblings("div.layui-form-select").find(select2).click();
+
+        var deal = [[${material.deal}]]
+        var select3 = 'dd[lay-value=' + deal + ']';
+        $('#deal').siblings("div.layui-form-select").find(select3).click();
     })
 
 

@@ -96,5 +96,10 @@ public class MaterialServiceImpl implements MaterialService {
         return materialMapper.getRiseCount();
     }
 
+    @Override
+    public void pass(int id) {
+        materialMapper.pass(id);
+    }
+
 
 }

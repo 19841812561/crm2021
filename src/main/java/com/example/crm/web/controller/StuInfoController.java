@@ -2,10 +2,9 @@ package com.example.crm.web.controller;
 
 import com.example.crm.model.Admin;
 import com.example.crm.model.CURDResult;
-import com.example.crm.model.CourseOrder;
 import com.example.crm.model.PageResult;
+import com.example.crm.model.State;
 import com.example.crm.service.AdminService;
-import com.example.crm.service.ICourseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,32 +18,40 @@ public class StuInfoController {
     AdminService adminService;
 
     @RequestMapping("list")
-    public String list(){
+    public String list() {
         return "stuinfo/list";
     }
 
     @RequestMapping("add")
-    public String add(){
+    public String add() {
         return "stuinfo/add";
     }
 
     @RequestMapping("change")
-    public String change(Model model, String id){
+    public String change(Model model, String id) {
         Admin admin = adminService.findByIdOrder(id);
-        model.addAttribute("admin",admin);
+        model.addAttribute("admin", admin);
         return "stuinfo/change";
     }
 
+//    @RequestMapping("changeState")
+//    public CURDResult changeState(String id, String state) {
+//        CURDResult result = new CURDResult();
+//        adminService.changeStateById(id, state);
+//
+//        return result;
+//    }
+
     @RequestMapping("detail")
-    public String detail(Model model,String id){
+    public String detail(Model model, String id) {
         Admin admin = adminService.findByIdOrder(id);
-        model.addAttribute("admin",admin);
+        model.addAttribute("admin", admin);
         return "stuinfo/detail";
     }
 
     @RequestMapping("delete")
     @ResponseBody
-    public CURDResult delete(String id){
+    public CURDResult delete(String id) {
         CURDResult result = new CURDResult();
         adminService.deleteByIdOrder(id);
 
@@ -53,11 +60,11 @@ public class StuInfoController {
 
     @RequestMapping("save")
     @ResponseBody
-    public CURDResult save(Admin admin){
+    public CURDResult save(Admin admin) {
         CURDResult result = new CURDResult();
         //{success:1;msg:""}
 
-            adminService.save(admin);
+        adminService.save(admin);
 
 
         System.out.println(admin);
@@ -67,14 +74,28 @@ public class StuInfoController {
 
     @RequestMapping("update")
     @ResponseBody
-    public CURDResult update(Admin admin){
+    public CURDResult update(Admin admin) {
         CURDResult result = new CURDResult();
         //{success:1;msg:""}
 
-            adminService.update(admin);
+        adminService.update(admin);
 
 
         System.out.println(admin);
+
+        return result;
+    }
+
+    @RequestMapping("updateState")
+    @ResponseBody
+    public CURDResult updateState(State state) {
+        CURDResult result = new CURDResult();
+        //{success:1;msg:""}
+
+        adminService.updateState(state);
+
+
+        System.out.println(state);
 
         return result;
     }
@@ -86,8 +107,8 @@ public class StuInfoController {
      * page 显示的当前页
      * limit 每次显示多少条
      */
-    public PageResult<Admin> listJson(Admin condition, int page, int limit){
-        PageResult<Admin> result = adminService.findPageResult(condition,page,limit);//limit就是pageSize
+    public PageResult<Admin> listJson(Admin condition, int page, int limit) {
+        PageResult<Admin> result = adminService.findPageResult(condition, page, limit);//limit就是pageSize
         return result;
     }
 

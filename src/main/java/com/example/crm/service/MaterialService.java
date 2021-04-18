@@ -20,5 +20,6 @@ public interface MaterialService {
     void update(Material material);
 
     List<RiseCount> getRiseCount();
-    
+
+    void pass(int id);
 }

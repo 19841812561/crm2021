@@ -109,6 +109,9 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
             class="layui-icon layui-icon-delete"
             style="font-size: 10px; color: #FFFFFF;"></i></a>
+    <a class="layui-btn layui-btn-xs" lay-event="pass"><i
+            class="layui-icon layui-icon-refresh"
+            style="font-size: 10px; color: #FFFFFF;"></i></a>
 </script>
 <script type="text/html" id="btn">
     <div class="layui-btn-container">
@@ -253,6 +256,20 @@
                     yes: function () {
                         parent.layer.closeAll();
                     }
+                });
+            } else if (layEvent === 'pass') {
+                layer.confirm('确认通过审核吗', function () {
+
+
+                    //向服务端发送删除指令
+                    $.get("/material/delete", {id: orderId, name: name}, function (respData) {
+                        if (respData.success == 1) {
+                            layer.msg("审核通过");
+                        } else {
+                            layer.msg("审核失败" + respData.message)
+                        }
+                    })
+
                 });
             }
         });

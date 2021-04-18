@@ -17,88 +17,148 @@
             <label class="layui-form-label">名称</label>
             <div class="layui-input-inline">
                 <input type="hidden" name="id" id="id" th:value="${material.id}">
-                <input type="text" name="name" id="name" th:value="${material.name}" autocomplete="off" class="layui-input">
+                <input type="text" name="name" id="name" th:value="${material.name}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">类别</label>
+            <div class="layui-input-inline">
+                <input type="text" name="type" id="type" th:value="${material.type}" placeholder="" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">数量</label>
             <div class="layui-input-inline">
-                <input type="text" name="specs" id="specs" th:value="${material.specs}" placeholder="" autocomplete="off"
+                <input type="text" name="specs" id="specs" th:value="${material.specs}" placeholder=""
+                       autocomplete="off"
                        class="layui-input">
             </div>
         </div>
 
-
+        <label class="layui-form-label">来源方式</label>
+        <div class="layui-input-inline">
+            <select name="modules" lay-verify="required" lay-search="" id="comefrom">
+                <option value="">请选择来源方式</option>
+                <option value="捐赠">捐赠</option>
+                <option value="募集">募集</option>
+                <option value="购买">购买</option>
+            </select>
+        </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">规格</label>
             <div class="layui-input-inline">
-                <input type="tel" name="unit" id="unit" th:value="${material.unit}" autocomplete="off" class="layui-input">
+                <input type="tel" name="unit" id="unit" th:value="${material.unit}" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">状态</label>
+            <label class="layui-form-label">相关人士</label>
             <div class="layui-input-inline">
-                <input type="tel" name="state" id="state" th:value="${material.state}" autocomplete="off" class="layui-input">
+                <input type="tel" name="people" id="people" th:value="${material.people}" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
+        <label class="layui-form-label">受理人</label>
+        <div class="layui-input-inline">
+            <select name="modules" lay-verify="required" lay-search="" id="receive">
+                <option value="">请选择受理人</option>
+                <option value="admin">admin</option>
+                <option value="朱文龙">朱文龙</option>
+                <option value="吴海华">吴海华</option>
+                <option value="邓正忍">邓正忍</option>
+            </select>
+        </div>
+        <label class="layui-form-label">处理人</label>
+        <div class="layui-input-inline">
+            <select name="modules" lay-verify="required" lay-search="" id="deal">
+                <option value="">请选择处理人</option>
+                <option value="admin">admin</option>
+                <option value="朱文龙">朱文龙</option>
+                <option value="吴海华">吴海华</option>
+                <option value="邓正忍">邓正忍</option>
+            </select>
+        </div>
+
         <div class="layui-inline">
             <label class="layui-form-label">日期选择</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="laydate" th:value="${material.date}" autocomplete="off" class="layui-input">
+                <input type="text" name="date" id="laydate" th:value="${material.date}" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="button" onclick="doSave();" class="layui-btn"  lay-filter="demo1">更新提交</button>
+            <button type="button" onclick="doSave();" class="layui-btn" lay-filter="demo1">更新提交</button>
         </div>
     </div>
 
 </from>
 
-<script>
-    var $,layer;
-    layui.use(['form','laydate'],function (){
+<script th:inline="javascript">
+    var $, layer;
+    layui.use(['form', 'laydate'], function () {
         var laydate = layui.laydate;
         $ = layui.jquery;
         layer = layui.layer;
         //日期
         laydate.render({
-            elem:'#laydate'
+            elem: '#laydate'
         });
+
+        var comefrom = [[${material.comefrom}]]
+        var select = 'dd[lay-value=' + comefrom + ']';
+        $('#comefrom').siblings("div.layui-form-select").find(select).click();
+
+        var receive = [[${material.receive}]]
+        var select = 'dd[lay-value=' + receive + ']';
+        $('#receive').siblings("div.layui-form-select").find(select).click();
+
+        var deal = [[${material.deal}]]
+        var select = 'dd[lay-value=' + deal + ']';
+        $('#deal').siblings("div.layui-form-select").find(select).click();
     })
 
-    function doSave(){
+    function doSave() {
         //alert("vvv");
         $.ajax({
-            type:"post",
-            url:"/material/update",
-            data:{
-                id:$("#id").val(),
-                name:$("#name").val(),
-                unit:$("#unit").val(),
-                specs:$("#specs").val(),
-                state:$("#state").val(),
-                address:$("#address").val(),
-                date:$("#laydate").val()
+            type: "post",
+            url: "/material/update",
+            data: {
+                id: $("#id").val(),
+                name: $("#name").val(),
+                specs: $("#specs").val(),
+                unit: $("#unit").val(),
+                type: $("#type").val(),
+                comefrom: $("#comefrom").val(),
+                people: $("#people").val(),
+                receive: $("#receive").val(),
+                deal: $("#deal").val(),
+                date: $("#laydate").val()
 
             },
-            success:function (data){
-                if (data.success == 1){
-                    layer.alert("修改成功",{yes:function (){
-                        parent.layer.closeAll();
-                        }})
-                }else{
-                    layer.alert("修改失败",{yes:function (){
+            success: function (data) {
+                if (data.success == 1) {
+                    layer.alert("修改成功", {
+                        yes: function () {
                             parent.layer.closeAll();
-                        }})
+                        }
+                    })
+                } else {
+                    layer.alert("修改失败", {
+                        yes: function () {
+                            parent.layer.closeAll();
+                        }
+                    })
                 }
             },
-            error:function (){
+            error: function () {
 
             }
 

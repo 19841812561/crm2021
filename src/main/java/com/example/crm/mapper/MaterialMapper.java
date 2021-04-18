@@ -28,4 +28,5 @@ public interface MaterialMapper {
     List<RiseCount> getRiseCount();
 
 
+    void pass(int id);
 }
