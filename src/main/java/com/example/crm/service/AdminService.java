@@ -24,9 +24,10 @@ public interface AdminService {
 
     List<AddressCount> getAddressCount();
 
-    Admin login(String username);
 
     String findAdminCount();
 
     void updateState(State state);
+
+    Admin getAdmin(Admin admin);
 }

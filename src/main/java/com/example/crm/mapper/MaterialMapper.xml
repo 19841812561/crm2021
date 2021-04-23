@@ -75,7 +75,7 @@
 
     <insert id="insert" parameterType="material">
         insert into material_history
-        (id, name, type, specs, unit, comfrom, people, receive, deal, date, state)
+        (id, name, type, specs, unit, comefrom, people, receive, deal, date, state)
         values (null, #{name}, #{type }, #{specs}, #{unit}, #{comefrom}, #{people}, #{receive}, #{deal}, #{date},
                 '0')
     </insert>

@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/stuinfo")
 public class StuInfoController {
@@ -98,6 +101,18 @@ public class StuInfoController {
         System.out.println(state);
 
         return result;
+    }
+
+    @RequestMapping("login")
+    public String login(Admin admin, HttpServletRequest request) {
+        Admin loginAdmin = adminService.getAdmin(admin);
+        if (loginAdmin == null) {
+            return "/login_error";
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("admin", loginAdmin);
+        return "home/home";
     }
 
 

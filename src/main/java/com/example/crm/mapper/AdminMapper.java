@@ -32,4 +32,6 @@ public interface AdminMapper {
     void changeStateById(String id, String state);
 
     void updateState(State state);
+
+    Admin getAdmin(Admin admin);
 }

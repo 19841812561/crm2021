@@ -262,7 +262,7 @@
 
 
                     //向服务端发送删除指令
-                    $.get("/material/delete", {id: orderId, name: name}, function (respData) {
+                    $.get("/material/pass", {id: orderId, name: name}, function (respData) {
                         if (respData.success == 1) {
                             layer.msg("审核通过");
                         } else {

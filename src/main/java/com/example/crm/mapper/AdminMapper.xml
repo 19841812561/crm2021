@@ -79,10 +79,12 @@
     </select>
 
 
-    <select id="findByAdminNameAndPassword" resultType="admin">
+    <select id="getAdmin" resultType="Admin">
         select *
         from admin
-        where username = #{username};
+        where username = #{username}
+          and password = #{password}
+          and state = '1';
     </select>
 
 

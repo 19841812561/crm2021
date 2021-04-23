@@ -75,10 +75,6 @@ public class AdminServiceImpl implements AdminService {
         return adminMapper.getAddressCount();
     }
 
-    @Override
-    public Admin login(String username) {
-        return adminMapper.findByAdminNameAndPassword(username);
-    }
 
     @Override
     public String findAdminCount() {
@@ -88,5 +84,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void updateState(State state) {
         adminMapper.updateState(state);
+    }
+
+    @Override
+    public Admin getAdmin(Admin admin) {
+        return adminMapper.getAdmin(admin);
     }
 }
